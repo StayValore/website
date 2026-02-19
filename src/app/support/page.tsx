@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { ContactForm } from '@/components/contact-form';
 
 export const metadata: Metadata = {
   title: 'Support - Valore',
@@ -22,8 +23,8 @@ export default function SupportPage() {
               Questions about Valore, your account, or how the app works? Reach
               out and we&apos;ll get back to you as soon as possible.
             </p>
-            <a href="mailto:madison@stayvalore.com">
-              madison@stayvalore.com
+            <a href="mailto:contact@stayvalore.com">
+              contact@stayvalore.com
             </a>
           </div>
 
@@ -33,7 +34,7 @@ export default function SupportPage() {
               Found something that isn&apos;t working right? Let us know the
               details and we&apos;ll investigate and fix it.
             </p>
-            <a href="mailto:madison@stayvalore.com?subject=Bug%20Report">
+            <a href="mailto:contact@stayvalore.com?subject=Bug%20Report">
               Report a Bug
             </a>
           </div>
@@ -44,7 +45,7 @@ export default function SupportPage() {
               Need to update your account, request your data, or delete your
               account? We&apos;re here to help.
             </p>
-            <a href="mailto:madison@stayvalore.com?subject=Account%20Request">
+            <a href="mailto:contact@stayvalore.com?subject=Account%20Request">
               Contact Us
             </a>
           </div>
@@ -55,11 +56,13 @@ export default function SupportPage() {
               Have a feature request or idea to make Valore better? We love
               hearing from our community.
             </p>
-            <a href="mailto:madison@stayvalore.com?subject=Feedback">
+            <a href="mailto:contact@stayvalore.com?subject=Feedback">
               Share Feedback
             </a>
           </div>
         </div>
+
+        <ContactForm />
       </div>
     </div>
   );
