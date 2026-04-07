@@ -26,7 +26,7 @@ export function Header() {
       <header className="header">
         <div className="header-inner">
           <Link href="/" className="header-logo">
-            Valore
+            Valoré
           </Link>
           <nav className="header-nav">
             {NAV_LINKS.map(link => (

@@ -67,21 +67,48 @@ export default function HomePage() {
         <div className="container">
           <span className="hero-badge">Now Available on iOS</span>
           <h1>
-            Hotel Reviews From
+            Where <span>Taste</span>
             <br />
-            People You <span>Trust</span>
+            Meets Trust.
           </h1>
           <p className="hero-subtitle">
-            Discover, review, and rank hotels through authentic recommendations
-            from friends and fellow travelers. Your next great stay starts here.
+            No more doom-scrolling to plan travel. Discover, review, and rank
+            hotels through recommendations from people you actually trust.
           </p>
           <div className="hero-cta-group">
-            <a className="btn-primary" href="#features">
+            <a className="btn-primary" href="https://apps.apple.com/app/valore" target="_blank" rel="noopener noreferrer">
+              Download on iOS
+            </a>
+            <a className="btn-secondary" href="#features">
               Learn More
             </a>
-            <a className="btn-secondary" href="/support">
-              Contact Us
-            </a>
+          </div>
+        </div>
+      </section>
+
+      <section className="app-showcase">
+        <div className="container">
+          <div className="showcase-scroll">
+            <div className="showcase-phone">
+              <img src="/screenshots/IMG_6509.PNG" alt="Valoré home feed showing hotel reviews from friends" />
+              <p className="showcase-label">Social Feed</p>
+            </div>
+            <div className="showcase-phone">
+              <img src="/screenshots/IMG_6505.PNG" alt="Valoré map view showing hotels in New York" />
+              <p className="showcase-label">Explore Map</p>
+            </div>
+            <div className="showcase-phone">
+              <img src="/screenshots/IMG_6508.PNG" alt="Valoré detailed hotel review with ratings" />
+              <p className="showcase-label">Detailed Reviews</p>
+            </div>
+            <div className="showcase-phone">
+              <img src="/screenshots/IMG_6506.PNG" alt="Valoré passport profile with hotel rankings" />
+              <p className="showcase-label">Your Passport</p>
+            </div>
+            <div className="showcase-phone">
+              <img src="/screenshots/IMG_6507.PNG" alt="Valoré bucket list with dream hotel stays" />
+              <p className="showcase-label">Dream Stays</p>
+            </div>
           </div>
         </div>
       </section>
@@ -137,8 +164,8 @@ export default function HomePage() {
               Join a community of travelers who share honest hotel reviews and
               discover incredible stays together.
             </p>
-            <a className="btn-white" href="/support">
-              Get in Touch
+            <a className="btn-white" href="https://apps.apple.com/app/valore" target="_blank" rel="noopener noreferrer">
+              Download on iOS
             </a>
           </div>
         </div>

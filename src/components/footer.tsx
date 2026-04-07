@@ -8,7 +8,7 @@ export function Footer() {
       <div className="footer-inner">
         <div className="footer-grid">
           <div className="footer-brand">
-            <h3>Valore</h3>
+            <h3>Valoré</h3>
             <p>
               The social hotel review platform for travelers who value authentic
               recommendations from people they trust.
@@ -26,7 +26,7 @@ export function Footer() {
           </div>
         </div>
         <div className="footer-bottom">
-          <p>&copy; {CURRENT_YEAR} Valore. All rights reserved.</p>
+          <p>&copy; {CURRENT_YEAR} Valoré. All rights reserved.</p>
           <p>madison@stayvalore.com</p>
         </div>
       </div>

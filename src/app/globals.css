@@ -1,16 +1,17 @@
 :root {
-  --color-primary: #0B2F96;
-  --color-primary-dark: #081F66;
-  --color-primary-light: #1A4FD6;
-  --color-accent: #6B8E9A;
+  --color-primary: #3A1E6E;
+  --color-primary-dark: #2A1550;
+  --color-primary-light: #6B4FA0;
+  --color-accent: #B4A0D4;
   --color-background: #FFFFFF;
-  --color-surface: #F8F9FC;
+  --color-surface: #F8F5FF;
   --color-text: #1A1A2E;
   --color-text-secondary: #5A5A7A;
   --color-text-muted: #8E8EA0;
-  --color-border: #E8E8F0;
+  --color-border: #E8E0F4;
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
     sans-serif;
+  --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
   --max-width: 1120px;
   --header-height: 72px;
 }
@@ -80,10 +81,11 @@ img {
 }
 
 .header-logo {
-  font-size: 24px;
+  font-family: var(--font-serif);
+  font-size: 26px;
   font-weight: 700;
   color: var(--color-primary);
-  letter-spacing: -0.5px;
+  letter-spacing: -0.3px;
 }
 
 .header-nav {
@@ -172,7 +174,8 @@ img {
 }
 
 .footer-brand h3 {
-  font-size: 20px;
+  font-family: var(--font-serif);
+  font-size: 22px;
   font-weight: 700;
   color: var(--color-primary);
   margin-bottom: 12px;
@@ -242,7 +245,7 @@ img {
 .hero-badge {
   display: inline-block;
   padding: 6px 16px;
-  background: rgba(11, 47, 150, 0.08);
+  background: rgba(58, 30, 110, 0.08);
   color: var(--color-primary);
   border-radius: 100px;
   font-size: 13px;
@@ -252,6 +255,7 @@ img {
 }
 
 .hero h1 {
+  font-family: var(--font-serif);
   font-size: 56px;
   font-weight: 800;
   line-height: 1.1;
@@ -338,6 +342,61 @@ img {
   }
 }
 
+/* App Showcase */
+.app-showcase {
+  padding: 40px 0 100px;
+  overflow: hidden;
+}
+
+.showcase-scroll {
+  display: flex;
+  gap: 32px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.showcase-phone {
+  flex: 0 0 auto;
+  width: 220px;
+  text-align: center;
+}
+
+.showcase-phone img {
+  width: 100%;
+  border-radius: 24px;
+  box-shadow: 0 8px 40px rgba(58, 30, 110, 0.12);
+  border: 1px solid var(--color-border);
+  transition: transform 0.3s;
+}
+
+.showcase-phone:hover img {
+  transform: translateY(-8px);
+}
+
+.showcase-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-primary-light);
+  margin-top: 14px;
+  letter-spacing: 0.3px;
+}
+
+@media (max-width: 768px) {
+  .showcase-scroll {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding: 0 24px 16px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .showcase-phone {
+    width: 180px;
+    scroll-snap-align: center;
+  }
+}
+
 /* Features */
 .features {
   padding: 100px 0;
@@ -353,6 +412,7 @@ img {
 }
 
 .section-title {
+  font-family: var(--font-serif);
   font-size: 40px;
   font-weight: 800;
   letter-spacing: -1px;
@@ -392,14 +452,14 @@ img {
 
 .feature-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(11, 47, 150, 0.08);
+  box-shadow: 0 12px 40px rgba(58, 30, 110, 0.08);
 }
 
 .feature-icon {
   width: 48px;
   height: 48px;
   border-radius: 12px;
-  background: rgba(11, 47, 150, 0.08);
+  background: rgba(58, 30, 110, 0.08);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -519,6 +579,7 @@ img {
 }
 
 .cta-card h2 {
+  font-family: var(--font-serif);
   font-size: 36px;
   font-weight: 800;
   letter-spacing: -0.8px;

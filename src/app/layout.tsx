@@ -4,14 +4,14 @@ import { Footer } from '@/components/footer';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Valore - Hotel Reviews From People You Trust',
+  title: 'Valoré - Where Taste Meets Trust',
   description:
-    'Discover and review hotels through authentic recommendations from your network. Rate, rank, and save your favorite stays.',
-  keywords: ['hotel reviews', 'travel', 'hotel recommendations', 'social travel'],
+    'Discover, review, and rank hotels through authentic recommendations from friends and travelers you trust. Your next great stay starts here.',
+  keywords: ['hotel reviews', 'travel', 'hotel recommendations', 'social travel', 'hotel discovery'],
   openGraph: {
-    title: 'Valore - Hotel Reviews From People You Trust',
+    title: 'Valoré - Where Taste Meets Trust',
     description:
-      'Discover and review hotels through authentic recommendations from your network.',
+      'Discover, review, and rank hotels through authentic recommendations from friends and travelers you trust.',
     type: 'website',
   },
 };
@@ -25,7 +25,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap"
           rel="stylesheet"
         />
       </head>
