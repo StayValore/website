@@ -3,11 +3,11 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 
 const SCREENSHOTS = [
-  { src: '/screenshots/IMG_6509.PNG', label: 'Social Feed', alt: 'Valoré home feed showing hotel reviews from friends' },
-  { src: '/screenshots/IMG_6505.PNG', label: 'Explore Map', alt: 'Valoré map view showing hotels in New York' },
-  { src: '/screenshots/IMG_6508.PNG', label: 'Detailed Reviews', alt: 'Valoré detailed hotel review with ratings' },
-  { src: '/screenshots/IMG_6506.PNG', label: 'Your Passport', alt: 'Valoré passport profile with hotel rankings' },
-  { src: '/screenshots/IMG_6507.PNG', label: 'Dream Stays', alt: 'Valoré bucket list with dream hotel stays' },
+  { src: '/screenshots/01_Home_Feed.PNG', label: 'Social Feed', alt: 'No more doom-scrolling to plan travel' },
+  { src: '/screenshots/02_Explore_Map.PNG', label: 'Explore Map', alt: 'Find hotels worth the splurge' },
+  { src: '/screenshots/03_Review.PNG', label: 'Detailed Reviews', alt: 'Rate what actually matters' },
+  { src: '/screenshots/04_Passport.PNG', label: 'Your Passport', alt: 'Where taste meets trust' },
+  { src: '/screenshots/05_Bucket_List.PNG', label: 'Dream Stays', alt: 'Curate your dream stays' },
 ];
 
 export function ScreenshotShowcase() {
