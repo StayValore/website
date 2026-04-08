@@ -29,26 +29,6 @@ const FEATURES = [
   },
 ] as const;
 
-const STEPS = [
-  {
-    number: 1,
-    title: 'Create Your Passport',
-    description:
-      'Sign up and set your travel style. Tell us whether you\'re a luxury traveler, business road warrior, or adventure seeker.',
-  },
-  {
-    number: 2,
-    title: 'Review Your Stays',
-    description:
-      'Rate and review hotels you\'ve stayed at. Add photos, share what you loved, and help others make better choices.',
-  },
-  {
-    number: 3,
-    title: 'Discover Together',
-    description:
-      'Follow friends, explore their reviews, and save dream hotels for your next trip. Travel better, together.',
-  },
-] as const;
 
 export default function HomePage() {
   return (
@@ -103,26 +83,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="how-it-works">
-        <div className="container">
-          <div className="how-it-works-header">
-            <p className="section-label">How It Works</p>
-            <h2 className="section-title">Get Started in Minutes</h2>
-            <p className="section-subtitle">
-              Three simple steps to better hotel discovery.
-            </p>
-          </div>
-          <div className="steps-grid">
-            {STEPS.map(step => (
-              <div key={step.number} className="step">
-                <div className="step-number">{step.number}</div>
-                <h3>{step.title}</h3>
-                <p>{step.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       <InstagramFeed />
 
