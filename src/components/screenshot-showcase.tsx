@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 
 const SCREENSHOTS = [
   { src: '/screenshots/IMG_6509.PNG', label: 'Social Feed', alt: 'Valoré home feed showing hotel reviews from friends' },
@@ -12,15 +12,45 @@ const SCREENSHOTS = [
 
 export function ScreenshotShowcase() {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [carouselIndex, setCarouselIndex] = useState(0);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   const openLightbox = (index: number) => setActiveIndex(index);
   const closeLightbox = () => setActiveIndex(null);
   const goNext = () => setActiveIndex(i => i !== null ? (i + 1) % SCREENSHOTS.length : 0);
   const goPrev = () => setActiveIndex(i => i !== null ? (i - 1 + SCREENSHOTS.length) % SCREENSHOTS.length : 0);
 
+  const scrollToIndex = useCallback((index: number) => {
+    const container = scrollRef.current;
+    if (!container) return;
+    const card = container.children[index] as HTMLElement;
+    if (!card) return;
+    const offset = card.offsetLeft - (container.offsetWidth - card.offsetWidth) / 2;
+    container.scrollTo({ left: offset, behavior: 'smooth' });
+  }, []);
+
+  useEffect(() => {
+    const container = scrollRef.current;
+    if (!container) return;
+    const onScroll = () => {
+      const center = container.scrollLeft + container.offsetWidth / 2;
+      let closest = 0;
+      let minDist = Infinity;
+      Array.from(container.children).forEach((child, i) => {
+        const el = child as HTMLElement;
+        const dist = Math.abs(el.offsetLeft + el.offsetWidth / 2 - center);
+        if (dist < minDist) { minDist = dist; closest = i; }
+      });
+      setCarouselIndex(closest);
+    };
+    container.addEventListener('scroll', onScroll, { passive: true });
+    return () => container.removeEventListener('scroll', onScroll);
+  }, []);
+
   return (
     <>
-      <div className="showcase-grid">
+      {/* Desktop: 5-across grid */}
+      <div className="showcase-grid showcase-desktop">
         {SCREENSHOTS.map((shot, index) => (
           <button
             key={shot.src}
@@ -30,13 +60,41 @@ export function ScreenshotShowcase() {
           >
             <div className="showcase-img-wrap">
               <img src={shot.src} alt={shot.alt} />
-              <div className="showcase-overlay">
-                <span>View</span>
-              </div>
+              <div className="showcase-overlay"><span>View</span></div>
             </div>
             <p className="showcase-label">{shot.label}</p>
           </button>
         ))}
+      </div>
+
+      {/* Mobile: swipeable carousel */}
+      <div className="showcase-mobile">
+        <div className="showcase-carousel" ref={scrollRef}>
+          {SCREENSHOTS.map((shot, index) => (
+            <button
+              key={shot.src}
+              className="carousel-slide"
+              onClick={() => openLightbox(index)}
+              aria-label={`View ${shot.label} screenshot`}
+            >
+              <div className="showcase-img-wrap">
+                <img src={shot.src} alt={shot.alt} />
+                <div className="showcase-overlay"><span>View</span></div>
+              </div>
+              <p className="showcase-label">{shot.label}</p>
+            </button>
+          ))}
+        </div>
+        <div className="carousel-dots">
+          {SCREENSHOTS.map((_, i) => (
+            <button
+              key={i}
+              className={`carousel-dot${i === carouselIndex ? ' active' : ''}`}
+              onClick={() => scrollToIndex(i)}
+              aria-label={`Go to screenshot ${i + 1}`}
+            />
+          ))}
+        </div>
       </div>
 
       {activeIndex !== null && (
@@ -48,10 +106,7 @@ export function ScreenshotShowcase() {
             aria-label="Previous"
           >‹</button>
           <div className="lightbox-content" onClick={e => e.stopPropagation()}>
-            <img
-              src={SCREENSHOTS[activeIndex].src}
-              alt={SCREENSHOTS[activeIndex].alt}
-            />
+            <img src={SCREENSHOTS[activeIndex].src} alt={SCREENSHOTS[activeIndex].alt} />
             <p className="lightbox-label">{SCREENSHOTS[activeIndex].label}</p>
           </div>
           <button
