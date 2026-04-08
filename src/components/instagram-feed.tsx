@@ -1,13 +1,5 @@
 'use client';
 
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      'behold-widget': { 'feed-id': string };
-    }
-  }
-}
-
 import { useEffect } from 'react';
 
 export function InstagramFeed() {
@@ -34,6 +26,7 @@ export function InstagramFeed() {
             @stayvalore
           </a>
         </div>
+        {/* @ts-expect-error behold-widget is a custom web component */}
         <behold-widget feed-id="ZPi4sjyKNWrqr7nvtKrd" />
       </div>
     </section>
