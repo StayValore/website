@@ -516,7 +516,7 @@ img {
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .showcase-desktop {
     display: none;
   }
@@ -585,6 +585,12 @@ img {
 
   .lightbox-prev { left: 8px; }
   .lightbox-next { right: 8px; }
+}
+
+@media (min-width: 769px) {
+  .showcase-mobile {
+    display: none;
+  }
 }
 
 /* Features */
