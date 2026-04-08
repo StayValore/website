@@ -704,6 +704,36 @@ img {
   }
 }
 
+/* Instagram section */
+.instagram-section {
+  padding: 100px 0;
+  background: var(--color-surface);
+}
+
+.instagram-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.instagram-handle {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-primary-light);
+  transition: color 0.2s;
+}
+
+.instagram-handle:hover {
+  color: var(--color-primary);
+}
+
+@media (max-width: 640px) {
+  .instagram-section {
+    padding: 64px 0;
+  }
+}
+
 /* CTA section */
 .cta-section {
   padding: 100px 0;

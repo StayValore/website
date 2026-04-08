@@ -1,5 +1,6 @@
 import { FeatureIcon } from '@/components/feature-icon';
 import { ScreenshotShowcase } from '@/components/screenshot-showcase';
+import { InstagramFeed } from '@/components/instagram-feed';
 
 const FEATURES = [
   {
@@ -135,6 +136,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <InstagramFeed />
 
       <section className="cta-section">
         <div className="container">
