@@ -18,6 +18,7 @@ export function Footer() {
             <h4>Product</h4>
             <Link href="/">Home</Link>
             <Link href="/support">Support</Link>
+            <a href="https://instagram.com/stayvalore" target="_blank" rel="noopener noreferrer">Instagram</a>
           </div>
           <div className="footer-column">
             <h4>Legal</h4>

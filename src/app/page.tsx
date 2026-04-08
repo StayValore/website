@@ -1,4 +1,5 @@
 import { FeatureIcon } from '@/components/feature-icon';
+import { ScreenshotShowcase } from '@/components/screenshot-showcase';
 
 const FEATURES = [
   {
@@ -88,28 +89,7 @@ export default function HomePage() {
 
       <section className="app-showcase">
         <div className="container">
-          <div className="showcase-scroll">
-            <div className="showcase-phone">
-              <img src="/screenshots/IMG_6509.PNG" alt="Valoré home feed showing hotel reviews from friends" />
-              <p className="showcase-label">Social Feed</p>
-            </div>
-            <div className="showcase-phone">
-              <img src="/screenshots/IMG_6505.PNG" alt="Valoré map view showing hotels in New York" />
-              <p className="showcase-label">Explore Map</p>
-            </div>
-            <div className="showcase-phone">
-              <img src="/screenshots/IMG_6508.PNG" alt="Valoré detailed hotel review with ratings" />
-              <p className="showcase-label">Detailed Reviews</p>
-            </div>
-            <div className="showcase-phone">
-              <img src="/screenshots/IMG_6506.PNG" alt="Valoré passport profile with hotel rankings" />
-              <p className="showcase-label">Your Passport</p>
-            </div>
-            <div className="showcase-phone">
-              <img src="/screenshots/IMG_6507.PNG" alt="Valoré bucket list with dream hotel stays" />
-              <p className="showcase-label">Dream Stays</p>
-            </div>
-          </div>
+          <ScreenshotShowcase />
         </div>
       </section>
 

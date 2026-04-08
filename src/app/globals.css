@@ -348,53 +348,192 @@ img {
   overflow: hidden;
 }
 
-.showcase-scroll {
-  display: flex;
-  gap: 32px;
-  justify-content: center;
-  flex-wrap: wrap;
+.showcase-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+  align-items: end;
 }
 
 .showcase-phone {
-  flex: 0 0 auto;
-  width: 220px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
   text-align: center;
+  position: relative;
 }
 
-.showcase-phone img {
-  width: 100%;
+.showcase-img-wrap {
+  position: relative;
   border-radius: 24px;
+  overflow: hidden;
   box-shadow: 0 8px 40px rgba(58, 30, 110, 0.12);
   border: 1px solid var(--color-border);
-  transition: transform 0.3s;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.showcase-phone:hover img {
+.showcase-phone:hover .showcase-img-wrap {
   transform: translateY(-8px);
+  box-shadow: 0 20px 56px rgba(58, 30, 110, 0.2);
+}
+
+.showcase-img-wrap img {
+  width: 100%;
+  display: block;
+  border-radius: 24px;
+}
+
+.showcase-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(58, 30, 110, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  border-radius: 24px;
+  transition: opacity 0.25s;
+}
+
+.showcase-phone:hover .showcase-overlay {
+  opacity: 1;
+}
+
+.showcase-overlay span {
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
 }
 
 .showcase-label {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   color: var(--color-primary-light);
-  margin-top: 14px;
+  margin-top: 12px;
   letter-spacing: 0.3px;
+  display: block;
 }
 
-@media (max-width: 768px) {
-  .showcase-scroll {
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    overflow-x: auto;
-    padding: 0 24px 16px;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
+/* Lightbox */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 5, 25, 0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-height: 90vh;
+}
+
+.lightbox-content img {
+  max-height: 80vh;
+  max-width: 340px;
+  width: auto;
+  border-radius: 28px;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5);
+}
+
+.lightbox-label {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 15px;
+  font-weight: 600;
+  margin-top: 16px;
+  letter-spacing: 0.4px;
+}
+
+.lightbox-close {
+  position: fixed;
+  top: 24px;
+  right: 28px;
+  background: rgba(255, 255, 255, 0.12);
+  border: none;
+  color: white;
+  font-size: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.lightbox-close:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.lightbox-arrow {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.12);
+  border: none;
+  color: white;
+  font-size: 36px;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  line-height: 1;
+}
+
+.lightbox-arrow:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.lightbox-prev { left: 20px; }
+.lightbox-next { right: 20px; }
+
+@media (max-width: 900px) {
+  .showcase-grid {
+    grid-template-columns: repeat(3, 1fr);
   }
 
-  .showcase-phone {
-    width: 180px;
-    scroll-snap-align: center;
+  .showcase-grid .showcase-phone:nth-child(4),
+  .showcase-grid .showcase-phone:nth-child(5) {
+    display: none;
   }
+}
+
+@media (max-width: 600px) {
+  .showcase-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .showcase-grid .showcase-phone:nth-child(3),
+  .showcase-grid .showcase-phone:nth-child(4),
+  .showcase-grid .showcase-phone:nth-child(5) {
+    display: none;
+  }
+
+  .lightbox-content img {
+    max-width: 85vw;
+  }
+
+  .lightbox-arrow {
+    width: 40px;
+    height: 40px;
+    font-size: 28px;
+  }
+
+  .lightbox-prev { left: 8px; }
+  .lightbox-next { right: 8px; }
 }
 
 /* Features */
