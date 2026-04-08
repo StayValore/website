@@ -513,13 +513,25 @@ img {
 
 @media (max-width: 600px) {
   .showcase-grid {
-    grid-template-columns: repeat(2, 1fr);
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 16px;
+    padding: 0 24px 16px;
+    scrollbar-width: none;
   }
 
-  .showcase-grid .showcase-phone:nth-child(3),
-  .showcase-grid .showcase-phone:nth-child(4),
-  .showcase-grid .showcase-phone:nth-child(5) {
+  .showcase-grid::-webkit-scrollbar {
     display: none;
+  }
+
+  .showcase-grid .showcase-phone {
+    flex: 0 0 72vw;
+    max-width: 260px;
+    scroll-snap-align: center;
+    display: block;
   }
 
   .lightbox-content img {
@@ -542,7 +554,7 @@ img {
 }
 
 .section-label {
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 600;
   color: var(--color-primary);
   text-transform: uppercase;

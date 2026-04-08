@@ -7,19 +7,19 @@ const FEATURES = [
     icon: 'star' as const,
     title: 'Detailed Reviews',
     description:
-      'Rate hotels on location, service, rooms, dining, and value. Add photos, personal rankings, and your honest take.',
+      'Rate hotels on location, amenities, aesthetic, and service as a single number does not always give all the detail. Add photos, extra details, and your honest take.',
   },
   {
     icon: 'users' as const,
     title: 'Social Discovery',
     description:
-      'Follow friends and fellow travelers. See what your network is staying at through a curated feed of authentic recommendations.',
+      'Follow friends and fellow travelers to see where your network is staying. Experience a curated feed of authentic and personalized recommendations.',
   },
   {
     icon: 'map' as const,
     title: 'Explore the Map',
     description:
-      'Browse reviewed hotels on an interactive map. Search by city and see exactly where your network has stayed.',
+      'Browse reviewed hotels on an interactive map. Sort by city, price, hotel brand, and booking platform to meet your needs.',
   },
   {
     icon: 'bookmark' as const,
