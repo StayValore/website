@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Terms of Service - Valore',
-  description: 'Valore terms of service. Read the terms and conditions for using the Valore app and website.',
+  title: 'Terms of Service - Valoré',
+  description: 'Valoré terms of service. Read the terms and conditions for using the Valoré app and website.',
 };
 
 export default function TermsPage() {
@@ -10,13 +10,13 @@ export default function TermsPage() {
     <div className="legal-page">
       <div className="container">
         <h1>Terms of Service</h1>
-        <p className="legal-updated">Last updated: February 19, 2026</p>
+        <p className="legal-updated">Last updated: April 17, 2026</p>
 
         <div className="legal-content">
           <p>
-            Welcome to Valore. These Terms of Service (&quot;Terms&quot;) govern
-            your access to and use of the Valore mobile application and website
-            (collectively, the &quot;Service&quot;) operated by Valore
+            Welcome to Valoré. These Terms of Service (&quot;Terms&quot;) govern
+            your access to and use of the Valoré mobile application and website
+            (collectively, the &quot;Service&quot;) operated by Valore LLC
             (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;).
           </p>
           <p>
@@ -27,9 +27,9 @@ export default function TermsPage() {
           <h2>1. Eligibility</h2>
           <p>
             You must be at least 13 years old to use the Service. By using the
-            Service, you represent and warrant that you meet this age
-            requirement. If you are under 18, you must have the consent of a
-            parent or legal guardian.
+            Service, you represent and warrant that you meet this age requirement.
+            If you are under 18, you must have the consent of a parent or legal
+            guardian.
           </p>
 
           <h2>2. Account Registration</h2>
@@ -64,9 +64,16 @@ export default function TermsPage() {
           <ul>
             <li>Violate any applicable law or regulation.</li>
             <li>Infringe on the intellectual property rights of others.</li>
-            <li>Contain false, misleading, or fraudulent information.</li>
-            <li>Include hateful, harassing, defamatory, or threatening material.</li>
-            <li>Contain spam, advertising, or unauthorized promotional content.</li>
+            <li>
+              Contain false, misleading, or fraudulent information, including
+              fake or incentivized reviews.
+            </li>
+            <li>
+              Include hateful, harassing, defamatory, or threatening material.
+            </li>
+            <li>
+              Contain spam, advertising, or unauthorized promotional content.
+            </li>
             <li>Include malicious code, viruses, or harmful data.</li>
           </ul>
           <p>
@@ -80,8 +87,13 @@ export default function TermsPage() {
             <li>Use the Service for any illegal or unauthorized purpose.</li>
             <li>Impersonate any person or entity.</li>
             <li>Interfere with or disrupt the Service or its servers.</li>
-            <li>Attempt to gain unauthorized access to any part of the Service.</li>
-            <li>Scrape, crawl, or use automated means to access the Service without permission.</li>
+            <li>
+              Attempt to gain unauthorized access to any part of the Service.
+            </li>
+            <li>
+              Scrape, crawl, or use automated means to access the Service
+              without permission.
+            </li>
             <li>Harass, bully, or intimidate other users.</li>
             <li>Create multiple accounts for deceptive purposes.</li>
           </ul>
@@ -89,13 +101,55 @@ export default function TermsPage() {
           <h2>5. Intellectual Property</h2>
           <p>
             The Service and its original content (excluding User Content),
-            features, and functionality are owned by Valore and are protected by
-            copyright, trademark, and other intellectual property laws. Our
+            features, and functionality are owned by Valore LLC and are protected
+            by copyright, trademark, and other intellectual property laws. Our
             trademarks, logos, and service marks may not be used without our
             prior written consent.
           </p>
 
-          <h2>6. Third-Party Services</h2>
+          <h2>6. DMCA and Copyright Policy</h2>
+          <p>
+            Valore LLC respects the intellectual property rights of others and
+            expects users of the Service to do the same. If you believe that
+            content on the Service infringes your copyright, please send a notice
+            containing the following information to our designated agent:
+          </p>
+          <ul>
+            <li>
+              A description of the copyrighted work you claim has been infringed.
+            </li>
+            <li>
+              A description of where the allegedly infringing content is located
+              within the Service.
+            </li>
+            <li>
+              Your contact information, including name, address, telephone
+              number, and email address.
+            </li>
+            <li>
+              A statement that you have a good faith belief that the use is not
+              authorized by the copyright owner, its agent, or the law.
+            </li>
+            <li>
+              A statement, made under penalty of perjury, that the information in
+              your notice is accurate and that you are the copyright owner or
+              authorized to act on their behalf.
+            </li>
+            <li>Your physical or electronic signature.</li>
+          </ul>
+          <p>
+            <strong>Designated Agent:</strong>
+            <br />
+            Email:{' '}
+            <a href="mailto:contact@stayvalore.com">contact@stayvalore.com</a>
+          </p>
+          <p>
+            We will respond to valid DMCA notices promptly and reserve the right
+            to remove content alleged to be infringing and to terminate accounts
+            of repeat infringers.
+          </p>
+
+          <h2>7. Third-Party Services</h2>
           <p>
             The Service may contain links to or integrations with third-party
             websites and services. We are not responsible for the content,
@@ -104,7 +158,7 @@ export default function TermsPage() {
             respective terms.
           </p>
 
-          <h2>7. Disclaimer of Warranties</h2>
+          <h2>8. Disclaimer of Warranties</h2>
           <p>
             The Service is provided &quot;as is&quot; and &quot;as
             available&quot; without warranties of any kind, either express or
@@ -119,12 +173,13 @@ export default function TermsPage() {
             of any hotel or service.
           </p>
 
-          <h2>8. Limitation of Liability</h2>
+          <h2>9. Limitation of Liability</h2>
           <p>
-            To the fullest extent permitted by applicable law, Valore shall not
-            be liable for any indirect, incidental, special, consequential, or
-            punitive damages, including but not limited to loss of profits, data,
-            or goodwill, arising out of or related to your use of the Service.
+            To the fullest extent permitted by applicable law, Valore LLC shall
+            not be liable for any indirect, incidental, special, consequential,
+            or punitive damages, including but not limited to loss of profits,
+            data, or goodwill, arising out of or related to your use of the
+            Service.
           </p>
           <p>
             Our total liability for any claim arising out of or relating to these
@@ -132,15 +187,15 @@ export default function TermsPage() {
             in the twelve (12) months prior to the claim.
           </p>
 
-          <h2>9. Indemnification</h2>
+          <h2>10. Indemnification</h2>
           <p>
-            You agree to indemnify, defend, and hold harmless Valore and its
+            You agree to indemnify, defend, and hold harmless Valore LLC and its
             officers, directors, employees, and agents from and against any
             claims, liabilities, damages, losses, and expenses arising out of or
             related to your use of the Service or violation of these Terms.
           </p>
 
-          <h2>10. Termination</h2>
+          <h2>11. Termination</h2>
           <p>
             We may terminate or suspend your access to the Service at any time,
             with or without cause, with or without notice. Upon termination, your
@@ -148,7 +203,7 @@ export default function TermsPage() {
             your account at any time by contacting us.
           </p>
 
-          <h2>11. Changes to These Terms</h2>
+          <h2>12. Changes to These Terms</h2>
           <p>
             We reserve the right to modify these Terms at any time. We will
             notify you of material changes by posting the updated Terms on this
@@ -157,14 +212,16 @@ export default function TermsPage() {
             acceptance of the revised Terms.
           </p>
 
-          <h2>12. Governing Law</h2>
+          <h2>13. Governing Law</h2>
           <p>
             These Terms shall be governed by and construed in accordance with the
-            laws of the United States, without regard to conflict of law
-            principles.
+            laws of the State of Texas, without regard to its conflict of law
+            principles. Any disputes arising under these Terms shall be subject
+            to the exclusive jurisdiction of the state and federal courts located
+            in Texas.
           </p>
 
-          <h2>13. Contact Us</h2>
+          <h2>14. Contact Us</h2>
           <p>
             If you have any questions about these Terms of Service, please
             contact us at:
@@ -178,4 +235,3 @@ export default function TermsPage() {
     </div>
   );
 }
-
