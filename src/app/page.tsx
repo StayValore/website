@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { FeatureIcon } from '@/components/feature-icon';
 import { ScreenshotShowcase } from '@/components/screenshot-showcase';
 import { InstagramFeed } from '@/components/instagram-feed';
@@ -37,6 +38,15 @@ export default function HomePage() {
       <section className="hero">
         <div className="container">
           <span className="hero-badge">Now Available on iOS</span>
+          <div className="hero-logo">
+            <Image
+              src="/logo.png"
+              alt="Valore logo"
+              width={80}
+              height={80}
+              priority
+            />
+          </div>
           <h1>
             Where <span>Taste</span>
             <br />

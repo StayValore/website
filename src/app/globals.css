@@ -242,6 +242,16 @@ img {
   background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-background) 100%);
 }
 
+.hero-logo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.hero-logo img {
+  border-radius: 18px;
+}
+
 .hero-badge {
   display: inline-block;
   padding: 6px 16px;
