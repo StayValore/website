@@ -2,7 +2,6 @@ import Image from 'next/image';
 import { FeatureIcon } from '@/components/feature-icon';
 import { ScreenshotShowcase } from '@/components/screenshot-showcase';
 import { InstagramFeed } from '@/components/instagram-feed';
-import { Waitlist } from '@/components/waitlist';
 
 const FEATURES = [
   {
@@ -95,7 +94,6 @@ export default function HomePage() {
       </section>
 
 
-      <Waitlist />
 
       <InstagramFeed />
 
