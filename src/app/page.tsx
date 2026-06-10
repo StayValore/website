@@ -2,7 +2,6 @@ import Image from 'next/image';
 import { FeatureIcon } from '@/components/feature-icon';
 import { ScreenshotShowcase } from '@/components/screenshot-showcase';
 import { InstagramFeed } from '@/components/instagram-feed';
-import { Waitlist } from '@/components/waitlist';
 
 const FEATURES = [
   {
@@ -57,7 +56,7 @@ export default function HomePage() {
             hotels through recommendations from people you actually trust.
           </p>
           <div className="hero-cta-group">
-            <a className="btn-primary" href="https://apps.apple.com/app/valore" target="_blank" rel="noopener noreferrer">
+            <a className="btn-primary" href="https://apps.apple.com/us/app/valor%C3%A9/id6760678152" target="_blank" rel="noopener noreferrer">
               Download on iOS
             </a>
             <a className="btn-secondary" href="#features">
@@ -95,7 +94,6 @@ export default function HomePage() {
       </section>
 
 
-      <Waitlist />
 
       <InstagramFeed />
 
@@ -107,7 +105,7 @@ export default function HomePage() {
               Join a community of travelers who share honest hotel reviews and
               discover incredible stays together.
             </p>
-            <a className="btn-white" href="https://apps.apple.com/app/valore" target="_blank" rel="noopener noreferrer">
+            <a className="btn-white" href="https://apps.apple.com/us/app/valor%C3%A9/id6760678152" target="_blank" rel="noopener noreferrer">
               Download on iOS
             </a>
           </div>
