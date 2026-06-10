@@ -1,0 +1,15 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["7Z699R82LF.com.stayvalore.valore"],
+        "components": [
+          { "/": "/review/*" },
+          { "/": "/hotel/*" },
+          { "/": "/user/*" },
+          { "/": "/collection/*" }
+        ]
+      }
+    ]
+  }
+}
