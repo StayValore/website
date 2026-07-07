@@ -6,16 +6,18 @@ export const metadata: Metadata = {
   description: 'Discover and share trusted hotel reviews with people whose taste you trust.',
 };
 
+// Route groups nest inside the root layout, so this must NOT render its own
+// <html>/<body> — doing so breaks hydration and kills the header links.
 export default function DeepLinkLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-      <body>{children}</body>
-    </html>
+    <>
+      {/* React hoists precedence-tagged stylesheets into <head> */}
+      <link
+        rel="stylesheet"
+        precedence="default"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      />
+      {children}
+    </>
   );
 }
