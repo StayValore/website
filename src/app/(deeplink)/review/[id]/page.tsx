@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { data: review } = await supabase
     .from('reviews')
     .select(`
-      notes, overall_rating, created_at, user_id, is_public,
+      notes, rating_overall, created_at, user_id, is_public,
       hotel:hotels(name, city, country, cover_image_url),
       photos:review_photos(url)
     `)
@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const photos = review.photos as any[];
   const coverPhoto = photos?.[0]?.url || hotel?.cover_image_url || DEFAULT_OG;
   const location = hotel ? [hotel.city, hotel.country].filter(Boolean).join(', ') : '';
-  const stars = starsFor(review.overall_rating);
+  const stars = starsFor(review.rating_overall);
   const title = `${stars} ${hotel?.name || 'Hotel Review'} — Valoré`;
   const excerpt = review.notes
     ? review.notes.slice(0, 150) + (review.notes.length > 150 ? '…' : '')
@@ -56,21 +56,24 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function ReviewPage({ params }: Props) {
   const { id } = await params;
 
-  const { data: review } = await supabase
+  const { data: reviewRow } = await supabase
     .from('reviews')
     .select(`
-      notes, overall_rating, created_at, user_id, is_public,
+      notes, rating_overall, created_at, user_id, is_public,
       hotel:hotels(id, name, city, country, cover_image_url),
       photos:review_photos(url)
     `)
     .eq('id', id)
     .single();
 
+  // Service-role key bypasses RLS — never render a non-public review's content.
+  const review = reviewRow?.is_public === false ? null : reviewRow;
+
   const hotel = review?.hotel as any;
   const photos = (review?.photos as any[]) || [];
   const heroPhoto = photos[0]?.url || hotel?.cover_image_url || null;
   const location = hotel ? [hotel.city, hotel.country].filter(Boolean).join(', ') : null;
-  const stars = starsFor(review?.overall_rating ?? null);
+  const stars = starsFor(review?.rating_overall ?? null);
   const deepLink = `valore://review/${id}`;
 
   // Fetch reviewer profile separately (FK workaround)

@@ -11,14 +11,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
   const { data: list } = await supabase
     .from('lists')
-    .select('name, description, user_id')
+    .select('name, user_id')
     .eq('id', id)
     .single();
 
   if (!list) return { title: 'Valoré' };
 
   const title = `${list.name} — Valoré Collection`;
-  const description = list.description || `A curated hotel collection on Valoré.`;
+  const description = 'A curated hotel collection on Valoré.';
 
   return {
     title,
@@ -40,7 +40,7 @@ export default async function CollectionPage({ params }: Props) {
 
   const { data: list } = await supabase
     .from('lists')
-    .select('name, description, user_id')
+    .select('name, user_id')
     .eq('id', id)
     .single();
 
@@ -90,7 +90,6 @@ export default async function CollectionPage({ params }: Props) {
 
         <p className="dl-eyebrow">Collection</p>
         <h1 className="dl-title">{list?.name || 'Hotel Collection'}</h1>
-        {list?.description && <p className="dl-excerpt">"{list.description}"</p>}
 
         {hotels.length > 0 && (
           <p className="dl-hotel-count">{hotels.length} hotel{hotels.length !== 1 ? 's' : ''}</p>

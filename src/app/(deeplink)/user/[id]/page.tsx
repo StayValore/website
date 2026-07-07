@@ -38,18 +38,24 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function UserPage({ params }: Props) {
   const { id } = await params;
-  const { data: profile } = await supabase
+  const { data: profileRow } = await supabase
     .from('profiles')
     .select('full_name, username, bio, avatar_url, is_private')
     .eq('id', id)
     .single();
 
+  // The service-role key bypasses RLS, so gate private profiles here —
+  // they render the generic shell, same as an unknown id.
+  const profile = profileRow?.is_private ? null : profileRow;
+
   // Count their public reviews
-  const { count: reviewCount } = await supabase
-    .from('reviews')
-    .select('id', { count: 'exact', head: true })
-    .eq('user_id', id)
-    .eq('is_public', true);
+  const { count: reviewCount } = profile
+    ? await supabase
+        .from('reviews')
+        .select('id', { count: 'exact', head: true })
+        .eq('user_id', id)
+        .eq('is_public', true)
+    : { count: 0 };
 
   const name = profile?.full_name || profile?.username || 'Valoré User';
   const initials = name.charAt(0).toUpperCase();
