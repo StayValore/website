@@ -64,10 +64,10 @@ export default async function HotelPage({ params }: Props) {
       </div>
 
       <div className="dl-card">
-        <div className="dl-brand">
+        <a href="/" className="dl-brand">
           <img src="/icon.png" alt="Valoré" />
           <span className="dl-brand-name">Valoré</span>
-        </div>
+        </a>
 
         <p className="dl-eyebrow">Hotel</p>
         <h1 className="dl-title">{hotel?.name || 'Hotel'}</h1>

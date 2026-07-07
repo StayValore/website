@@ -66,6 +66,7 @@
   align-items: center;
   gap: 8px;
   margin-bottom: 20px;
+  text-decoration: none; /* it's a link home now */
 }
 
 .dl-brand img {

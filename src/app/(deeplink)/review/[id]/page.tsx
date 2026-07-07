@@ -106,10 +106,10 @@ export default async function ReviewPage({ params }: Props) {
       </div>
 
       <div className="dl-card">
-        <div className="dl-brand">
+        <a href="/" className="dl-brand">
           <img src="/icon.png" alt="Valoré" />
           <span className="dl-brand-name">Valoré</span>
-        </div>
+        </a>
 
         <p className="dl-eyebrow">Review</p>
         <h1 className="dl-title">{hotel?.name || 'Hotel Review'}</h1>

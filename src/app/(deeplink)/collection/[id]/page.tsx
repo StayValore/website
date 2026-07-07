@@ -83,10 +83,10 @@ export default async function CollectionPage({ params }: Props) {
       )}
 
       <div className="dl-card">
-        <div className="dl-brand">
+        <a href="/" className="dl-brand">
           <img src="/icon.png" alt="Valoré" />
           <span className="dl-brand-name">Valoré</span>
-        </div>
+        </a>
 
         <p className="dl-eyebrow">Collection</p>
         <h1 className="dl-title">{list?.name || 'Hotel Collection'}</h1>

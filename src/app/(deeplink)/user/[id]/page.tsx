@@ -96,10 +96,10 @@ export default async function UserPage({ params }: Props) {
 
         <div className="dl-divider" />
 
-        <div className="dl-brand" style={{ marginBottom: '20px' }}>
+        <a href="/" className="dl-brand" style={{ marginBottom: '20px' }}>
           <img src="/icon.png" alt="Valoré" />
           <span className="dl-brand-name">View on Valoré</span>
-        </div>
+        </a>
 
         <a href={deepLink} className="dl-btn-primary">Open in Valoré</a>
         <a href={APP_STORE_URL} className="dl-btn-secondary">Download Valoré — Free on iOS</a>

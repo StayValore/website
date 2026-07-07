@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 const NAV_LINKS = [
   { href: '/', label: 'Home' },
@@ -10,8 +11,17 @@ const NAV_LINKS = [
   { href: '/support', label: 'Support' },
 ] as const;
 
+// App deep-link landing pages are a focused, dark interstitial — the site
+// header clashes there. Their card's Valoré brand row links home instead.
+const DEEP_LINK_PREFIXES = ['/hotel/', '/review/', '/user/', '/collection/'];
+
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
+
+  if (DEEP_LINK_PREFIXES.some(prefix => pathname.startsWith(prefix))) {
+    return null;
+  }
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(previousState => !previousState);
