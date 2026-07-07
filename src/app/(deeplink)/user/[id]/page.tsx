@@ -57,12 +57,9 @@ export default async function UserPage({ params }: Props) {
 
   return (
     <div className="dl-page">
-      <div className="dl-hero" style={{ height: '220px', minHeight: '220px' }}>
-        <div className="dl-hero-placeholder" />
-        <div className="dl-hero-fade" />
-      </div>
-
-      <div className="dl-card" style={{ marginTop: '-60px' }}>
+      {/* No hero — profiles have no cover image, and the empty purple
+          placeholder read as a broken banner over the avatar. */}
+      <div className="dl-card" style={{ paddingTop: '48px' }}>
         <div style={{ display: 'flex', alignItems: 'flex-end', gap: '14px', marginBottom: '16px' }}>
           {profile?.avatar_url ? (
             <Image
