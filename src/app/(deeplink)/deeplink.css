@@ -257,3 +257,76 @@
   background: #1a1a2e;
   width: 100%;
 }
+
+/* --- In-app-browser prompt sheet (AppPrompt component) --- */
+.dl-sheet-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 1000;
+  display: flex;
+  align-items: flex-end;
+}
+
+.dl-sheet {
+  width: 100%;
+  background: #16161e;
+  color: #fff;
+  border-radius: 20px 20px 0 0;
+  padding: 12px 24px calc(24px + env(safe-area-inset-bottom));
+  text-align: center;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  animation: dl-sheet-up 0.28s ease-out;
+  box-sizing: border-box;
+}
+
+.dl-sheet * { box-sizing: border-box; }
+
+@keyframes dl-sheet-up {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+.dl-sheet-handle {
+  width: 36px;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.25);
+  margin: 0 auto 16px;
+}
+
+.dl-sheet-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 13px;
+  margin: 0 auto 12px;
+  display: block;
+}
+
+.dl-sheet-title {
+  font-size: 19px;
+  font-weight: 600;
+  margin: 0 0 4px;
+}
+
+.dl-sheet-subtitle {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.65);
+  margin: 0 0 18px;
+  line-height: 1.4;
+}
+
+.dl-sheet .dl-btn-primary,
+.dl-sheet .dl-btn-secondary {
+  margin-bottom: 10px;
+}
+
+.dl-sheet-dismiss {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 14px;
+  font-family: inherit;
+  padding: 8px;
+  cursor: pointer;
+}

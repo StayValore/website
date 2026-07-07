@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { AppPrompt } from '@/components/app-prompt';
 import './deeplink.css';
 
 export const metadata: Metadata = {
@@ -18,6 +19,7 @@ export default function DeepLinkLayout({ children }: { children: React.ReactNode
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
       />
       {children}
+      <AppPrompt />
     </>
   );
 }
