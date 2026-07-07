@@ -88,3 +88,4 @@ src/
 ## Deployment
 
 The site is deployed automatically to Vercel on every push to the main branch.
+
