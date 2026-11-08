@@ -1199,3 +1199,139 @@ img {
   color: var(--color-text-secondary);
   margin-bottom: 24px;
 }
+
+/* ---------- SEO pages: /hotels, /hotels/[city], hotel-page review sections ---------- */
+.seo-page {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+}
+.seo-h1 {
+  font-family: var(--font-serif);
+  font-size: 2.2rem;
+  color: var(--color-text);
+  margin-bottom: 12px;
+}
+.seo-lede {
+  font-family: var(--font-sans);
+  color: var(--color-text-secondary);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  max-width: 640px;
+  margin-bottom: 36px;
+}
+.seo-breadcrumb {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  margin-bottom: 20px;
+  display: flex;
+  gap: 8px;
+}
+.seo-breadcrumb a { color: var(--color-primary-light); text-decoration: none; }
+.seo-city-grid {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 14px;
+}
+.seo-city-card {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 16px 18px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  text-decoration: none;
+  font-family: var(--font-sans);
+  transition: border-color 0.15s ease;
+}
+.seo-city-card:hover { border-color: var(--color-primary-light); }
+.seo-city-name { font-weight: 600; color: var(--color-text); }
+.seo-city-country { font-size: 0.82rem; color: var(--color-text-muted); }
+.seo-city-count { font-size: 0.82rem; color: var(--color-text-secondary); margin-top: 6px; }
+.seo-hotel-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 720px;
+}
+.seo-hotel-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 16px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  text-decoration: none;
+  font-family: var(--font-sans);
+  transition: border-color 0.15s ease;
+}
+.seo-hotel-row:hover { border-color: var(--color-primary-light); }
+.seo-hotel-rank {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  color: var(--color-text-muted);
+  min-width: 28px;
+  text-align: center;
+}
+.seo-hotel-thumb {
+  width: 72px;
+  height: 72px;
+  border-radius: 10px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+.seo-hotel-thumb-empty { background: var(--color-border); display: inline-block; }
+.seo-hotel-info { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.seo-hotel-name { font-weight: 600; color: var(--color-text); }
+.seo-hotel-meta { font-size: 0.85rem; color: var(--color-text-secondary); }
+.seo-cta {
+  margin-top: 48px;
+  padding: 28px;
+  background: var(--color-surface);
+  border-radius: 16px;
+  text-align: center;
+  font-family: var(--font-sans);
+  color: var(--color-text-secondary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.seo-reviews { margin-top: 32px; text-align: left; }
+.seo-reviews-title {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  color: var(--color-text);
+  margin-bottom: 16px;
+}
+.seo-review {
+  padding: 14px 0;
+  border-top: 1px solid var(--color-border);
+  font-family: var(--font-sans);
+}
+.seo-review-head {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  margin-bottom: 6px;
+}
+.seo-review-rating { color: var(--color-primary); font-weight: 600; }
+.seo-review-author { font-weight: 500; color: var(--color-text-secondary); }
+.seo-review-titleline { font-weight: 600; color: var(--color-text); margin-bottom: 4px; }
+.seo-review-text {
+  color: var(--color-text-secondary);
+  line-height: 1.55;
+  font-size: 0.95rem;
+}
+.seo-avg-rating { font-weight: 600; }
+.seo-backlink { margin-top: 24px; font-family: var(--font-sans); font-size: 0.9rem; }
+.seo-backlink a { color: var(--color-primary-light); text-decoration: none; }
