@@ -1,6 +1,8 @@
 'use client';
 
-const APP_STORE_URL = 'https://apps.apple.com/us/app/valor%C3%A9/id6760678152';
+import { appStoreUrl } from '@/lib/appStoreLink';
+
+const APP_STORE_URL = appStoreUrl('invite');
 
 /**
  * Copies this invite link before heading to the App Store. The App Store

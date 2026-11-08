@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Analytics } from '@vercel/analytics/next';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import './globals.css';
@@ -33,6 +34,9 @@ export default function RootLayout({
         <Header />
         <main>{children}</main>
         <Footer />
+        {/* Vercel Web Analytics: referrers, UTM params, and per-path traffic
+            for every landing page — the top-of-funnel half of attribution */}
+        <Analytics />
       </body>
     </html>
   );

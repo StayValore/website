@@ -2,7 +2,9 @@
 
 import { useEffect, useState } from 'react';
 
-const APP_STORE_URL = 'https://apps.apple.com/us/app/valor%C3%A9/id6760678152';
+import { appStoreUrl } from '@/lib/appStoreLink';
+
+const APP_STORE_URL = appStoreUrl('app_prompt');
 const DEEP_LINK_SECTIONS = ['hotel', 'review', 'user', 'collection'];
 
 function getDeepLink(pathname: string): string | null {

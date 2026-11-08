@@ -2,7 +2,9 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import { supabase } from '@/lib/supabase';
 
-const APP_STORE_URL = 'https://apps.apple.com/us/app/valor%C3%A9/id6760678152';
+import { appStoreUrl } from '@/lib/appStoreLink';
+
+const APP_STORE_URL = appStoreUrl('share_hotel');
 const DEFAULT_OG = 'https://stayvalore.com/logo.png';
 
 interface Props { params: Promise<{ id: string }> }
