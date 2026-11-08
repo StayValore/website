@@ -34,5 +34,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     });
   }
 
+  // Public user collections (F75). The visibility column ships in a separate
+  // migration — if it isn't there yet, skip collections rather than fail.
+  const { data: lists, error: listsError } = await supabase
+    .from('lists')
+    .select('id')
+    .eq('visibility', 'public')
+    .eq('is_default', false);
+  if (!listsError) {
+    for (const l of lists ?? []) {
+      entries.push({
+        url: `${SITE}/collection/${l.id}`,
+        changeFrequency: 'weekly',
+        priority: 0.5,
+      });
+    }
+  }
+
   return entries;
 }
