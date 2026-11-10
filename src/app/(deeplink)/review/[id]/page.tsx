@@ -99,7 +99,7 @@ export default async function ReviewPage({ params }: Props) {
     <div className="dl-page">
       <div className="dl-hero">
         {heroPhoto ? (
-          <Image src={heroPhoto} alt={hotel?.name || 'Review photo'} fill style={{ objectFit: 'cover' }} />
+          <Image src={heroPhoto} alt={hotel?.name || 'Review photo'} fill sizes="(min-width: 768px) 760px, 100vw" style={{ objectFit: 'cover' }} />
         ) : (
           <div className="dl-hero-placeholder">
             <svg width="80" height="80" viewBox="0 0 24 24" fill="white">

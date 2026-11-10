@@ -74,7 +74,7 @@ export default async function CollectionPage({ params }: Props) {
     <div className="dl-page">
       {coverPhotos.length > 0 ? (
         <div className="dl-hero">
-          <Image src={coverPhotos[0]} alt={list?.name || 'Collection'} fill style={{ objectFit: 'cover' }} />
+          <Image src={coverPhotos[0]} alt={list?.name || 'Collection'} fill sizes="(min-width: 768px) 760px, 100vw" style={{ objectFit: 'cover' }} />
           <div className="dl-hero-fade" />
         </div>
       ) : (

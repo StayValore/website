@@ -25,6 +25,24 @@
   background: #1a1a2e;
 }
 
+/* Desktop: contain the hero instead of stretching an ~800px cover across the
+   whole viewport (sources are CF uploads capped at 800w — full-bleed = blur). */
+@media (min-width: 768px) {
+  .dl-hero {
+    max-width: 760px;
+    height: 400px;
+    margin: 32px auto 0;
+    border-radius: 20px;
+  }
+  .dl-hero-fade {
+    background: linear-gradient(to bottom, transparent, rgba(15, 15, 20, 0.85));
+  }
+  .dl-card {
+    max-width: 560px;
+    padding-top: 32px;
+  }
+}
+
 .dl-hero img {
   width: 100%;
   height: 100%;
@@ -258,6 +276,20 @@
   background: #1a1a2e;
   width: 100%;
 }
+
+/* --- Reviews section on the dark deeplink pages ---
+   The .seo-* classes in globals.css use the site's LIGHT-theme tokens
+   (near-black text); on .dl-page's dark background they're unreadable.
+   Scoped overrides, bronze rating to match the app's dark-mode stars. */
+.dl-page .seo-reviews-title { color: #fff; }
+.dl-page .seo-review { border-top-color: #2a2a3e; }
+.dl-page .seo-review-head { color: #8e8ea0; }
+.dl-page .seo-review-rating { color: #d4b98d; }
+.dl-page .seo-review-author { color: #c8c8d8; }
+.dl-page .seo-review-trip { color: #8e8ea0; }
+.dl-page .seo-review-titleline { color: #fff; }
+.dl-page .seo-review-text { color: #c8c8d8; }
+.dl-page .seo-backlink a { color: #b4a0d4; }
 
 /* --- In-app-browser prompt sheet (AppPrompt component) --- */
 .dl-sheet-backdrop {

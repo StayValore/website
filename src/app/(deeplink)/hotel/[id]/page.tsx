@@ -101,7 +101,7 @@ export default async function HotelPage({ params }: Props) {
       )}
       <div className="dl-hero">
         {hotel?.cover_image_url ? (
-          <Image src={hotel.cover_image_url} alt={hotel.name || 'Hotel'} fill style={{ objectFit: 'cover' }} />
+          <Image src={hotel.cover_image_url} alt={hotel.name || 'Hotel'} fill sizes="(min-width: 768px) 760px, 100vw" style={{ objectFit: 'cover' }} />
         ) : (
           <div className="dl-hero-placeholder">
             <svg width="80" height="80" viewBox="0 0 24 24" fill="white">
