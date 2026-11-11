@@ -1,5 +1,5 @@
 import { supabase } from '@/lib/supabase';
-import { citySlug, getReviewedCities } from '@/lib/seo';
+import { citySlug, getPrivateUserIds, getReviewedCities } from '@/lib/seo';
 
 export interface HeroHotel {
   id: string;
@@ -40,7 +40,9 @@ export async function getHomeData(): Promise<HomeData> {
     .eq('is_public', true)
     .order('created_at', { ascending: false })
     .limit(200);
-  const all = reviews ?? [];
+  // Service-role key bypasses RLS — private accounts never surface here (B79)
+  const privateIds = await getPrivateUserIds([...new Set((reviews ?? []).map((r) => r.user_id))]);
+  const all = (reviews ?? []).filter((r) => !privateIds.has(r.user_id));
 
   // Per-hotel aggregates for the hero mosaic
   const agg = new Map<string, { sum: number; n: number }>();

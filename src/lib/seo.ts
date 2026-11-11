@@ -107,6 +107,21 @@ export async function getCityHotels(slug: string): Promise<{ city: CityEntry; ho
   return { city, hotels: ranked };
 }
 
+/**
+ * Ids of private accounts among userIds (B79). The website queries with the
+ * service-role key, which bypasses RLS — so every surface that renders review
+ * content or author names must exclude private accounts explicitly.
+ */
+export async function getPrivateUserIds(userIds: string[]): Promise<Set<string>> {
+  if (userIds.length === 0) return new Set();
+  const { data } = await supabase
+    .from('profiles')
+    .select('id')
+    .in('id', userIds)
+    .eq('is_private', true);
+  return new Set((data ?? []).map((p) => p.id));
+}
+
 export interface PublicReview {
   rating_overall: number;
   title: string | null;
@@ -132,14 +147,16 @@ export async function getHotelReviews(hotelId: string): Promise<PublicReview[]> 
   const userIds = [...new Set(reviews.map((r) => r.user_id))];
   const { data: profiles } = await supabase
     .from('profiles')
-    .select('id, full_name, username')
+    .select('id, full_name, username, is_private')
     .in('id', userIds);
+  // Service-role key bypasses RLS — private accounts never render on the web (B79)
+  const privateIds = new Set((profiles ?? []).filter((p) => p.is_private).map((p) => p.id));
   const names = new Map((profiles ?? []).map((p) => [
     p.id,
     (p.full_name || p.username || '').split(' ')[0] || null, // first name only on the public web
   ]));
 
-  return reviews.map((r) => ({
+  return reviews.filter((r) => !privateIds.has(r.user_id)).map((r) => ({
     rating_overall: r.rating_overall,
     title: r.title,
     text: r.notes || r.body || null,

@@ -30,6 +30,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!review || review.is_public === false) return { title: 'Valoré' };
 
+  // A private account's review never renders on the public web (B79)
+  const { data: author } = await supabase
+    .from('profiles')
+    .select('is_private')
+    .eq('id', review.user_id)
+    .single();
+  if (author?.is_private) return { title: 'Valoré' };
+
   const hotel = review.hotel as any;
   const photos = review.photos as any[];
   const coverPhoto = photos?.[0]?.url || hotel?.cover_image_url || DEFAULT_OG;
@@ -68,8 +76,17 @@ export default async function ReviewPage({ params }: Props) {
     .eq('id', id)
     .single();
 
-  // Service-role key bypasses RLS — never render a non-public review's content.
-  const review = reviewRow?.is_public === false ? null : reviewRow;
+  // Service-role key bypasses RLS — never render a non-public review's
+  // content, nor any review by a private account (B79).
+  let review = reviewRow?.is_public === false ? null : reviewRow;
+  if (review?.user_id) {
+    const { data: author } = await supabase
+      .from('profiles')
+      .select('is_private')
+      .eq('id', review.user_id)
+      .single();
+    if (author?.is_private) review = null;
+  }
 
   const hotel = review?.hotel as any;
   const photos = (review?.photos as any[]) || [];
