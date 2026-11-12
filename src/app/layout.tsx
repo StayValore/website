@@ -8,12 +8,12 @@ export const metadata: Metadata = {
   // Google Search Console ownership (URL-prefix property, HTML-tag method —
   // the domain's DNS lives at the registrar, not Vercel, so TXT wasn't viable)
   verification: { google: 'aNzYjLspq3QSpSpeaxbGEksbWNCrmrdKvPQ8ifnD1e0' },
-  title: 'Valoré - Where Taste Meets Trust',
+  title: 'Valoré — The Hotel Review App for Real Travelers',
   description:
-    'Discover, review, and rank hotels through authentic recommendations from friends and travelers you trust. Your next great stay starts here.',
+    'Review, rank, and discover hotels through real reviews from friends and travelers you trust — no ads, no paid placements. Where taste meets trust.',
   keywords: ['hotel reviews', 'travel', 'hotel recommendations', 'social travel', 'hotel discovery'],
   openGraph: {
-    title: 'Valoré - Where Taste Meets Trust',
+    title: 'Valoré — The Hotel Review App for Real Travelers',
     description:
       'Discover, review, and rank hotels through authentic recommendations from friends and travelers you trust.',
     type: 'website',
