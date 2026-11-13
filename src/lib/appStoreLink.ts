@@ -7,7 +7,7 @@
 // (the pt= value is the same for every link). Until it's filled in, links fall
 // back to the bare store URL — nothing breaks.
 const APP_STORE_BASE = 'https://apps.apple.com/us/app/valor%C3%A9/id6760678152';
-const PROVIDER_TOKEN = ''; // TODO(ebby): paste the pt= value from App Store Connect
+const PROVIDER_TOKEN = '128635163';
 
 export type AppStoreCampaign =
   | 'web_home'
@@ -17,7 +17,7 @@ export type AppStoreCampaign =
   | 'share_collection'
   | 'invite'
   | 'app_prompt'
-  | 'social_bio';
+  | 'bio_instagram';
 
 export function appStoreUrl(campaign: AppStoreCampaign): string {
   if (!PROVIDER_TOKEN) return APP_STORE_BASE;

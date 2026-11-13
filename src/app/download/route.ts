@@ -13,11 +13,11 @@ const VALID: AppStoreCampaign[] = [
   'share_collection',
   'invite',
   'app_prompt',
-  'social_bio',
+  'bio_instagram',
 ];
 
 export function GET(req: NextRequest) {
   const c = req.nextUrl.searchParams.get('c') as AppStoreCampaign | null;
-  const campaign: AppStoreCampaign = c && VALID.includes(c) ? c : 'social_bio';
+  const campaign: AppStoreCampaign = c && VALID.includes(c) ? c : 'bio_instagram';
   return NextResponse.redirect(appStoreUrl(campaign), 307);
 }
