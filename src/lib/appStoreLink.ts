@@ -16,7 +16,8 @@ export type AppStoreCampaign =
   | 'share_profile'
   | 'share_collection'
   | 'invite'
-  | 'app_prompt';
+  | 'app_prompt'
+  | 'social_bio';
 
 export function appStoreUrl(campaign: AppStoreCampaign): string {
   if (!PROVIDER_TOKEN) return APP_STORE_BASE;
