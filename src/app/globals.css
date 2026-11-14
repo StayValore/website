@@ -1305,6 +1305,24 @@ img {
 .seo-hotel-info { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
 .seo-hotel-name { font-weight: 600; color: var(--color-text); }
 .seo-hotel-meta { font-size: 0.85rem; color: var(--color-text-secondary); }
+.seo-hotel-quote {
+  display: block;
+  margin-top: 0.3rem;
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--color-text-secondary);
+  line-height: 1.4;
+}
+.seo-more-cities { margin: 2.5rem 0 1rem; }
+.seo-more-cities h2 { font-size: 1.05rem; margin-bottom: 0.75rem; }
+.seo-more-cities ul {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 0.4rem 1.25rem;
+}
+.seo-more-cities a { font-size: 0.92rem; text-decoration: underline; }
 .seo-cta {
   margin-top: 48px;
   padding: 28px;

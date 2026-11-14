@@ -65,6 +65,16 @@ export interface RankedHotel {
   cover_image_url: string | null;
   avgRating: number; // 1 decimal
   reviewCount: number;
+  /** Short excerpt from the hotel's best public review (B79-filtered). */
+  quote?: string;
+}
+
+/** Trim review text to a quotable excerpt, cutting at a word boundary. */
+function excerpt(text: string, max = 150): string {
+  const clean = text.replace(/\s+/g, ' ').trim();
+  if (clean.length <= max) return clean;
+  const cut = clean.slice(0, max);
+  return `${cut.slice(0, Math.max(cut.lastIndexOf(' '), 100))}…`;
 }
 
 /** Publicly reviewed hotels in a city (by slug), ranked by Valoré rating. */
@@ -103,6 +113,27 @@ export async function getCityHotels(slug: string): Promise<{ city: CityEntry; ho
       };
     })
     .sort((a, b) => b.avgRating - a.avgRating || b.reviewCount - a.reviewCount);
+
+  // One quotable excerpt per hotel, from its highest-rated public review.
+  // The service-role key bypasses RLS, so private authors are excluded
+  // explicitly (B79) and hidden reviews are skipped.
+  const { data: quoteRows } = await supabase
+    .from('reviews')
+    .select('hotel_id, user_id, rating_overall, body, notes')
+    .eq('is_public', true)
+    .eq('is_hidden', false)
+    .in('hotel_id', ranked.map((h) => h.id))
+    .order('rating_overall', { ascending: false });
+  const privateAuthors = await getPrivateUserIds(
+    [...new Set((quoteRows ?? []).map((r) => r.user_id))],
+  );
+  const quoteByHotel = new Map<string, string>();
+  for (const r of quoteRows ?? []) {
+    if (quoteByHotel.has(r.hotel_id) || privateAuthors.has(r.user_id)) continue;
+    const text = (r.body || r.notes || '').trim();
+    if (text.length >= 20) quoteByHotel.set(r.hotel_id, excerpt(text));
+  }
+  for (const h of ranked) h.quote = quoteByHotel.get(h.id);
 
   return { city, hotels: ranked };
 }

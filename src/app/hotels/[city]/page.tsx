@@ -34,6 +34,9 @@ export default async function CityPage({ params }: Props) {
   const data = await getCityHotels(slug);
   if (!data) notFound();
   const { city, hotels } = data;
+  const otherCities = (await getReviewedCities())
+    .filter((c) => c.slug !== slug)
+    .slice(0, 12);
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -83,11 +86,27 @@ export default async function CityPage({ params }: Props) {
                   ★ {h.avgRating.toFixed(1)} · {h.reviewCount}{' '}
                   {h.reviewCount === 1 ? 'review' : 'reviews'}
                 </span>
+                {h.quote && (
+                  <span className="seo-hotel-quote">&ldquo;{h.quote}&rdquo;</span>
+                )}
               </span>
             </Link>
           </li>
         ))}
       </ol>
+
+      {otherCities.length > 0 && (
+        <nav className="seo-more-cities" aria-label="More cities">
+          <h2>More cities on Valoré</h2>
+          <ul>
+            {otherCities.map((c) => (
+              <li key={c.slug}>
+                <Link href={`/hotels/${c.slug}`}>Best hotels in {c.city}</Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )}
 
       <div className="seo-cta">
         <p>Every rating on Valoré comes from a traveler who actually stayed.</p>
