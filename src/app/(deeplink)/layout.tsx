@@ -18,6 +18,11 @@ export default function DeepLinkLayout({ children }: { children: React.ReactNode
         precedence="default"
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
       />
+      <nav className="dl-nav">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <a href="/" className="dl-nav-home"><img src="/logo-wordmark-light.png" alt="Valoré home" className="dl-nav-logo" /></a>
+        <a href="/hotels" className="dl-nav-link">All hotels</a>
+      </nav>
       {children}
       <AppPrompt />
     </>

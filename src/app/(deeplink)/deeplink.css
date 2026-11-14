@@ -363,3 +363,28 @@
   padding: 8px;
   cursor: pointer;
 }
+
+
+/* Slim site nav on deep-link pages: the way back home */
+.dl-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  background: #0f0c18;
+}
+.dl-nav-home { display: block; }
+.dl-nav-logo { height: 20px; width: auto; display: block; }
+.dl-nav-link {
+  color: #c8c8d8;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Review stack: breathing room between guests */
+.dl-page .seo-review { padding: 22px 0; }
+.dl-page .seo-review + .seo-review { margin-top: 4px; }
+.dl-page .seo-review-head { margin-bottom: 10px; }
+.dl-page .seo-review-text { line-height: 1.65; }
