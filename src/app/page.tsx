@@ -7,18 +7,39 @@ import { getHomeData } from '@/lib/home';
 // real cities — and refreshes hourly. The site *is* the product.
 export const revalidate = 3600;
 
-const STEPS = [
+// How-it-works cards: the three steps each pair with one of the current
+// App Store posters; the last two posters ride along captioned.
+const HOW_CARDS = [
   {
+    src: '/app-shots/review.jpg',
+    alt: 'Rating a stay in Valoré — room, service, aesthetic',
+    n: 1,
     title: 'Log your stays',
     body: 'Rate the room, the service, the aesthetic — the things a single OTA score flattens. Add photos and your honest take.',
   },
   {
+    src: '/app-shots/feed.jpg',
+    alt: 'A feed of stays from people you follow',
+    n: 2,
     title: 'Follow people whose taste you trust',
     body: 'Your feed is stays from friends and travelers you choose, not ads or sponsored placements.',
   },
   {
+    src: '/app-shots/map.jpg',
+    alt: 'A map where every pin is a trusted stay',
+    n: 3,
     title: 'Never book blind again',
     body: 'Next trip, open the map: every pin is a hotel someone you trust has actually slept in.',
+  },
+  {
+    src: '/app-shots/discover.jpg',
+    alt: 'Community hotel rankings in the Valoré app',
+    caption: 'Browse the community’s rankings',
+  },
+  {
+    src: '/app-shots/passport.jpg',
+    alt: 'A Valoré travel passport profile',
+    caption: 'Build your travel passport',
   },
 ] as const;
 
@@ -107,28 +128,33 @@ export default async function HomePage() {
       )}
 
       <section className="ed-section ed-how">
-        <div className="ed-how-copy">
-          <h2 className="ed-section-title">How it works</h2>
-          <ol className="ed-steps">
-            {STEPS.map((s, i) => (
-              <li key={s.title} className="ed-step">
-                <span className="ed-step-n">{i + 1}</span>
-                <span>
-                  <h3 className="ed-step-title">{s.title}</h3>
-                  <p className="ed-step-body">{s.body}</p>
-                </span>
-              </li>
-            ))}
-          </ol>
-        </div>
-        <div className="ed-how-shot">
-          <Image
-            src="/screenshots/01_Home_Feed.PNG"
-            alt="The Valoré home feed: stays from people you follow"
-            width={280}
-            height={606}
-            className="ed-shot-img"
-          />
+        <h2 className="ed-section-title">How it works</h2>
+        <div className="ed-how-strip" role="list">
+          {HOW_CARDS.map((c) => (
+            <figure key={c.src} className="ed-how-card" role="listitem">
+              <Image
+                src={c.src}
+                alt={c.alt}
+                width={640}
+                height={1388}
+                sizes="(max-width: 760px) 72vw, 300px"
+                className="ed-how-img"
+              />
+              <figcaption className="ed-how-caption">
+                {'n' in c ? (
+                  <>
+                    <span className="ed-step-n">{c.n}</span>
+                    <span>
+                      <h3 className="ed-step-title">{c.title}</h3>
+                      <p className="ed-step-body">{c.body}</p>
+                    </span>
+                  </>
+                ) : (
+                  <p className="ed-how-mini">{c.caption}</p>
+                )}
+              </figcaption>
+            </figure>
+          ))}
         </div>
       </section>
 

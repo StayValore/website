@@ -1668,3 +1668,28 @@ img {
   .ed-hero { padding-left: 16px; padding-right: 16px; }
   .ed-close { padding: 56px 16px; }
 }
+
+
+/* How-it-works v2 — App Store poster strip (supersedes the old 2-col layout) */
+.ed-how { display: block; }
+.ed-how-strip {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding: 8px 4px 16px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+.ed-how-card { flex: 0 0 280px; scroll-snap-align: start; margin: 0; }
+.ed-how-img {
+  width: 100%;
+  height: auto;
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(33, 24, 50, 0.12);
+  display: block;
+}
+.ed-how-caption { display: flex; gap: 12px; margin-top: 14px; align-items: flex-start; }
+.ed-how-mini { font-size: 0.9rem; color: var(--color-text-secondary); margin-top: 2px; }
+@media (max-width: 760px) {
+  .ed-how-card { flex-basis: 72vw; }
+}

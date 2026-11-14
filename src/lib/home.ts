@@ -84,7 +84,7 @@ export async function getHomeData(): Promise<HomeData> {
   // Recent reviews with substantial text, for the "Recently on Valoré" cards
   const candidates = all
     .map((r) => ({ ...r, text: (r.notes || r.body || '').trim() }))
-    .filter((r) => r.text.length >= 60 && hotelById.get(r.hotel_id));
+    .filter((r) => r.text.length >= 60 && r.rating_overall >= 4.3 && hotelById.get(r.hotel_id));  // quality floor: the homepage leads with loved stays, not whatever came last
   const seenHotels = new Set<string>();
   const picked: typeof candidates = [];
   for (const r of candidates) {
