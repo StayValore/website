@@ -34,12 +34,14 @@ const HOW_CARDS = [
   {
     src: '/app-shots/discover.jpg',
     alt: 'Community hotel rankings in the Valoré app',
-    caption: 'Browse the community’s rankings',
+    title: 'Browse the rankings',
+    body: 'Community Top 10s for every city members have rated — the taste, aggregated.',
   },
   {
     src: '/app-shots/passport.jpg',
     alt: 'A Valoré travel passport profile',
-    caption: 'Build your travel passport',
+    title: 'Build your passport',
+    body: 'Every stay you’ve logged, ranked and kept — your travel history in one place.',
   },
 ] as const;
 
@@ -141,17 +143,11 @@ export default async function HomePage() {
                 className="ed-how-img"
               />
               <figcaption className="ed-how-caption">
-                {'n' in c ? (
-                  <>
-                    <span className="ed-step-n">{c.n}</span>
-                    <span>
-                      <h3 className="ed-step-title">{c.title}</h3>
-                      <p className="ed-step-body">{c.body}</p>
-                    </span>
-                  </>
-                ) : (
-                  <p className="ed-how-mini">{c.caption}</p>
-                )}
+                <span className="ed-step-n">{'n' in c ? c.n : '+'}</span>
+                <span>
+                  <h3 className="ed-step-title">{c.title}</h3>
+                  <p className="ed-step-body">{c.body}</p>
+                </span>
               </figcaption>
             </figure>
           ))}

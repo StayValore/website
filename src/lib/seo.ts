@@ -77,6 +77,17 @@ function excerpt(text: string, max = 150): string {
   return `${cut.slice(0, Math.max(cut.lastIndexOf(' '), 100))}…`;
 }
 
+/**
+ * Ranking score that doesn't let one 5.0 review outrank 4.7-across-three:
+ * each hotel's average is pulled toward a 4.2 prior until it has ~3 reviews
+ * (standard Bayesian smoothing). Display still shows the true average.
+ */
+function bayes(h: { avgRating: number; reviewCount: number }): number {
+  const m = 3;
+  const prior = 4.2;
+  return (h.avgRating * h.reviewCount + prior * m) / (h.reviewCount + m);
+}
+
 /** Publicly reviewed hotels in a city (by slug), ranked by Valoré rating. */
 export async function getCityHotels(slug: string): Promise<{ city: CityEntry; hotels: RankedHotel[] } | null> {
   const cities = await getReviewedCities();
@@ -112,7 +123,7 @@ export async function getCityHotels(slug: string): Promise<{ city: CityEntry; ho
         reviewCount: a.n,
       };
     })
-    .sort((a, b) => b.avgRating - a.avgRating || b.reviewCount - a.reviewCount);
+    .sort((a, b) => bayes(b) - bayes(a) || b.reviewCount - a.reviewCount);
 
   // One quotable excerpt per hotel, from its highest-rated public review.
   // The service-role key bypasses RLS, so private authors are excluded
