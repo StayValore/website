@@ -1693,3 +1693,11 @@ img {
 @media (max-width: 760px) {
   .ed-how-card { flex-basis: 72vw; }
 }
+
+
+/* Brand wordmark replaces the text logo (header + footer) */
+.header-logo-img { height: 26px; width: auto; display: block; }
+.footer-logo-img { height: 22px; width: auto; display: block; margin-bottom: 12px; }
+@media (max-width: 760px) {
+  .header-logo-img { height: 22px; }
+}

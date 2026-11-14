@@ -37,7 +37,8 @@ export function Header() {
       <header className="header">
         <div className="header-inner">
           <Link href="/" className="header-logo">
-            Valoré
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/logo-wordmark.png" alt="Valoré" className="header-logo-img" />
           </Link>
           <nav className="header-nav">
             {NAV_LINKS.map(link => (

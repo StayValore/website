@@ -8,7 +8,7 @@ export function Footer() {
       <div className="footer-inner">
         <div className="footer-grid">
           <div className="footer-brand">
-            <h3>Valoré</h3>
+            <img src="/logo-wordmark.png" alt="Valoré" className="footer-logo-img" />
             <p>
               The social hotel review platform for travelers who value authentic
               recommendations from people they trust.
