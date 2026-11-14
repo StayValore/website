@@ -34,12 +34,14 @@ const HOW_CARDS = [
   {
     src: '/app-shots/discover.jpg',
     alt: 'Community hotel rankings in the Valoré app',
+    n: 4,
     title: 'Browse the rankings',
     body: 'Community Top 10s for every city members have rated — the taste, aggregated.',
   },
   {
     src: '/app-shots/passport.jpg',
     alt: 'A Valoré travel passport profile',
+    n: 5,
     title: 'Build your passport',
     body: 'Every stay you’ve logged, ranked and kept — your travel history in one place.',
   },
