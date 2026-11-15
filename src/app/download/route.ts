@@ -14,6 +14,7 @@ const VALID: AppStoreCampaign[] = [
   'invite',
   'app_prompt',
   'bio_instagram',
+  'meta_ads',
 ];
 
 export function GET(req: NextRequest) {
