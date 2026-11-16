@@ -4,6 +4,9 @@ import { supabase } from '@/lib/supabase';
 
 import { appStoreUrl } from '@/lib/appStoreLink';
 
+// Hourly ISR — share-link clicks were paying a full server render EVERY time
+export const revalidate = 3600;
+
 const APP_STORE_URL = appStoreUrl('share_review');
 const DEFAULT_OG = 'https://stayvalore.com/logo.png';
 

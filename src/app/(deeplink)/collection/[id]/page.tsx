@@ -4,10 +4,22 @@ import { supabase } from '@/lib/supabase';
 
 import { appStoreUrl } from '@/lib/appStoreLink';
 
+// Hourly ISR — share-link clicks were paying a full server render EVERY time
+export const revalidate = 3600;
+
 const APP_STORE_URL = appStoreUrl('share_collection');
 const DEFAULT_OG = 'https://stayvalore.com/logo.png';
 
 interface Props { params: Promise<{ id: string }> }
+
+export async function generateStaticParams() {
+  const { data } = await supabase
+    .from('lists')
+    .select('id')
+    .eq('visibility', 'public')
+    .eq('is_default', false);
+  return (data ?? []).map((l) => ({ id: l.id }));
+}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;

@@ -3,6 +3,9 @@ import Image from 'next/image';
 import { supabase } from '@/lib/supabase';
 import GetAppButton from './GetAppButton';
 
+// Hourly ISR — share-link clicks were paying a full server render EVERY time
+export const revalidate = 3600;
+
 const DEFAULT_OG = 'https://stayvalore.com/logo.png';
 
 interface Props { params: Promise<{ username: string }> }
