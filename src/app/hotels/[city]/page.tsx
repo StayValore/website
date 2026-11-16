@@ -119,8 +119,11 @@ export default async function CityPage({ params }: Props) {
               )}
               <span className="seo-hotel-info">
                 <span className="seo-hotel-name">{h.name}</span>
+                {/* leading space is invisible on the page but keeps Google's
+                    scraped text from smushing name into rating ("Ginza★4.3") */}
+                {' '}
                 <span className="seo-hotel-meta">
-                  {'— '}★ {h.avgRating.toFixed(1)} · {h.reviewCount}{' '}
+                  ★ {h.avgRating.toFixed(1)} · {h.reviewCount}{' '}
                   {h.reviewCount === 1 ? 'review' : 'reviews'}
                 </span>
                 {h.quotes?.map((q) => (
