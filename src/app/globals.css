@@ -1218,7 +1218,8 @@ img {
 .seo-page {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 48px 24px 80px;
+  /* the site header is position:fixed — clear it, then breathe */
+  padding: calc(var(--header-height) + 36px) 24px 80px;
 }
 .seo-h1 {
   font-family: var(--font-serif);
