@@ -20,7 +20,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!data) return { title: 'Valoré' };
   const { city, hotels } = data;
   const title = `Best Hotels in ${city.city} — Ranked by Real Travelers | Valoré`;
-  const description = `${hotels.length} hotels in ${city.city}${city.country ? `, ${city.country}` : ''} rated by Valoré members who actually stayed. Honest reviews, no sponsored rankings.`;
+  const top = hotels[0];
+  const description = top
+    ? `${top.name} leads ${hotels.length === 1 ? 'the ranking' : `${hotels.length} hotels`} in ${city.city}${city.country ? `, ${city.country}` : ''} at ★${top.avgRating.toFixed(1)} — rated by Valoré members who actually stayed. Honest reviews, never sponsored.`
+    : `Hotels in ${city.city} rated by Valoré members who actually stayed. Honest reviews, never sponsored.`;
   return {
     title,
     description,
@@ -38,6 +41,15 @@ export default async function CityPage({ params }: Props) {
     .filter((c) => c.slug !== slug)
     .slice(0, 12);
 
+  const breadcrumbLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Hotels', item: `${SITE}/hotels` },
+      { '@type': 'ListItem', position: 2, name: city.city, item: `${SITE}/hotels/${slug}` },
+    ],
+  };
+
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
@@ -54,6 +66,7 @@ export default async function CityPage({ params }: Props) {
   return (
     <div className="seo-page">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
       <nav className="seo-breadcrumb">
         <Link href="/hotels">Hotels</Link> <span>/</span> <span>{city.city}</span>
       </nav>
@@ -107,7 +120,7 @@ export default async function CityPage({ params }: Props) {
               <span className="seo-hotel-info">
                 <span className="seo-hotel-name">{h.name}</span>
                 <span className="seo-hotel-meta">
-                  ★ {h.avgRating.toFixed(1)} · {h.reviewCount}{' '}
+                  {'— '}★ {h.avgRating.toFixed(1)} · {h.reviewCount}{' '}
                   {h.reviewCount === 1 ? 'review' : 'reviews'}
                 </span>
                 {h.quotes?.map((q) => (

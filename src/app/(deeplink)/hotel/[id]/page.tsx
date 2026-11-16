@@ -99,10 +99,23 @@ export default async function HotelPage({ params }: Props) {
     })),
   } : null;
 
+  const breadcrumbLd = hotel?.city ? {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Hotels', item: `${SITE}/hotels` },
+      { '@type': 'ListItem', position: 2, name: hotel.city, item: `${SITE}/hotels/${citySlug(hotel.city)}` },
+      { '@type': 'ListItem', position: 3, name: hotel.name, item: `${SITE}/hotel/${id}` },
+    ],
+  } : null;
+
   return (
     <div className="dl-page">
       {jsonLd && (
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      )}
+      {breadcrumbLd && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
       )}
       <div className="dl-hero">
         {hotel?.cover_image_url ? (
