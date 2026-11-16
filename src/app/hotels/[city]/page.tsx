@@ -63,6 +63,30 @@ export default async function CityPage({ params }: Props) {
         members who actually stayed{city.country ? ` in ${city.city}, ${city.country}` : ''}.
         Community-rated — never sponsored.
       </p>
+      {hotels.length > 0 && (
+        <p className="seo-city-intro">
+          {hotels.length === 1 ? (
+            <>
+              So far, one {city.city} stay has made it into members&rsquo; logs:{' '}
+              <strong>{hotels[0].name}</strong>, rated ★{hotels[0].avgRating.toFixed(1)} after a
+              real night there. As more members pass through {city.city}, this ranking fills in —
+              every addition written by a guest, never a brand.
+            </>
+          ) : (
+            <>
+              Members have logged {city.reviewCount} {city.reviewCount === 1 ? 'stay' : 'stays'}{' '}
+              across {hotels.length} hotels in {city.city}.{' '}
+              <strong>{hotels[0].name}</strong> currently tops the ranking at ★
+              {hotels[0].avgRating.toFixed(1)}
+              {hotels.filter((h) => h.avgRating >= 4.5).length > 1
+                ? `, one of ${hotels.filter((h) => h.avgRating >= 4.5).length} hotels here rated 4.5 or higher`
+                : ''}
+              . The order below is pure guest math — ratings from people who slept there, weighted
+              so a single perfect score doesn&rsquo;t outrank a hotel proven across many stays.
+            </>
+          )}
+        </p>
+      )}
 
       <ol className="seo-hotel-list">
         {hotels.map((h, i) => (
@@ -86,9 +110,9 @@ export default async function CityPage({ params }: Props) {
                   ★ {h.avgRating.toFixed(1)} · {h.reviewCount}{' '}
                   {h.reviewCount === 1 ? 'review' : 'reviews'}
                 </span>
-                {h.quote && (
-                  <span className="seo-hotel-quote">&ldquo;{h.quote}&rdquo;</span>
-                )}
+                {h.quotes?.map((q) => (
+                  <span key={q.slice(0, 40)} className="seo-hotel-quote">&ldquo;{q}&rdquo;</span>
+                ))}
               </span>
             </Link>
           </li>

@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
-import { SITE, citySlug, getHotelReviews } from '@/lib/seo';
+import { SITE, citySlug, getCityHotels, getHotelReviews } from '@/lib/seo';
 import { appStoreUrl } from '@/lib/appStoreLink';
 
 const APP_STORE_URL = appStoreUrl('share_hotel');
@@ -70,6 +70,11 @@ export default async function HotelPage({ params }: Props) {
 
   const location = hotel ? [hotel.city, hotel.country].filter(Boolean).join(', ') : null;
   const deepLink = `valore://hotel/${id}`;
+
+  // Sibling hotels in the same city — internal links that keep a hotel-name
+  // searcher exploring (and give crawlers a dense hotel↔city graph).
+  const cityData = hotel?.city ? await getCityHotels(citySlug(hotel.city)).catch(() => null) : null;
+  const siblings = (cityData?.hotels ?? []).filter((h) => h.id !== id).slice(0, 5);
 
   const jsonLd = hotel && avg !== null ? {
     '@context': 'https://schema.org',
@@ -151,6 +156,21 @@ export default async function HotelPage({ params }: Props) {
                 {r.text && <p className="seo-review-text">{r.text}</p>}
               </article>
             ))}
+          </section>
+        )}
+
+        {siblings.length > 0 && hotel?.city && (
+          <section className="seo-siblings">
+            <h2 className="seo-reviews-title">More hotels in {hotel.city}</h2>
+            <ul className="seo-sibling-list">
+              {siblings.map((h) => (
+                <li key={h.id}>
+                  <Link href={`/hotel/${h.id}`}>
+                    {h.name} <span className="seo-sibling-meta">★ {h.avgRating.toFixed(1)}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </section>
         )}
 

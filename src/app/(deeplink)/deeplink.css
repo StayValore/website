@@ -388,3 +388,11 @@
 .dl-page .seo-review + .seo-review { margin-top: 4px; }
 .dl-page .seo-review-head { margin-bottom: 10px; }
 .dl-page .seo-review-text { line-height: 1.65; }
+
+/* Sibling-hotel cross-links on hotel pages (SEO enrichment pass) */
+.seo-siblings { margin-top: 28px; text-align: left; }
+.seo-sibling-list { list-style: none; padding: 0; margin: 10px 0 0; }
+.seo-sibling-list li { padding: 7px 0; border-bottom: 1px solid rgba(0, 0, 0, 0.07); }
+.seo-sibling-list a { color: inherit; text-decoration: none; font-weight: 500; }
+.seo-sibling-list a:hover { text-decoration: underline; }
+.seo-sibling-meta { color: #8a8494; font-weight: 400; margin-left: 6px; }

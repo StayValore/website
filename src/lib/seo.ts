@@ -65,12 +65,12 @@ export interface RankedHotel {
   cover_image_url: string | null;
   avgRating: number; // 1 decimal
   reviewCount: number;
-  /** Short excerpt from the hotel's best public review (B79-filtered). */
-  quote?: string;
+  /** Excerpts from the hotel's best public reviews (B79-filtered), best first. */
+  quotes?: string[];
 }
 
 /** Trim review text to a quotable excerpt, cutting at a word boundary. */
-function excerpt(text: string, max = 150): string {
+function excerpt(text: string, max = 280): string {
   const clean = text.replace(/\s+/g, ' ').trim();
   if (clean.length <= max) return clean;
   const cut = clean.slice(0, max);
@@ -138,13 +138,17 @@ export async function getCityHotels(slug: string): Promise<{ city: CityEntry; ho
   const privateAuthors = await getPrivateUserIds(
     [...new Set((quoteRows ?? []).map((r) => r.user_id))],
   );
-  const quoteByHotel = new Map<string, string>();
+  const quotesByHotel = new Map<string, string[]>();
   for (const r of quoteRows ?? []) {
-    if (quoteByHotel.has(r.hotel_id) || privateAuthors.has(r.user_id)) continue;
+    if (privateAuthors.has(r.user_id)) continue;
     const text = (r.body || r.notes || '').trim();
-    if (text.length >= 20) quoteByHotel.set(r.hotel_id, excerpt(text));
+    if (text.length < 20) continue;
+    const list = quotesByHotel.get(r.hotel_id) ?? [];
+    if (list.length >= 2) continue;
+    list.push(excerpt(text));
+    quotesByHotel.set(r.hotel_id, list);
   }
-  for (const h of ranked) h.quote = quoteByHotel.get(h.id);
+  for (const h of ranked) h.quotes = quotesByHotel.get(h.id);
 
   return { city, hotels: ranked };
 }
