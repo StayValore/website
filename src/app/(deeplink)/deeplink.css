@@ -396,3 +396,11 @@
 .seo-sibling-list a { color: inherit; text-decoration: none; font-weight: 500; }
 .seo-sibling-list a:hover { text-decoration: underline; }
 .seo-sibling-meta { color: #8a8494; font-weight: 400; margin-left: 6px; }
+
+/* Blurred guest-photo teaser */
+.seo-teaser { margin-top: 28px; text-align: left; }
+.seo-teaser-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 10px; }
+.seo-teaser-img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 10px; }
+.seo-teaser-cta { margin-top: 10px; font-size: 0.92rem; color: #6b6477; }
+.seo-teaser-cta a { color: #3a1e6e; font-weight: 600; }
+@media (max-width: 480px) { .seo-teaser-grid { grid-template-columns: repeat(3, 1fr); } .seo-teaser-grid .seo-teaser-img:nth-child(4) { display: none; } }

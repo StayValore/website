@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
-import { SITE, citySlug, getCityHotels, getHotelReviews } from '@/lib/seo';
+import { SITE, citySlug, getCityHotels, getHotelReviews, getHotelTeaserPhotos } from '@/lib/seo';
 import { appStoreUrl } from '@/lib/appStoreLink';
 
 const APP_STORE_URL = appStoreUrl('share_hotel');
@@ -75,6 +75,7 @@ export default async function HotelPage({ params }: Props) {
   // searcher exploring (and give crawlers a dense hotel↔city graph).
   const cityData = hotel?.city ? await getCityHotels(citySlug(hotel.city)).catch(() => null) : null;
   const siblings = (cityData?.hotels ?? []).filter((h) => h.id !== id).slice(0, 5);
+  const teaser = hotel ? await getHotelTeaserPhotos(id).catch(() => ({ ids: [], total: 0 })) : { ids: [], total: 0 };
 
   const jsonLd = hotel && avg !== null ? {
     '@context': 'https://schema.org',
@@ -169,6 +170,24 @@ export default async function HotelPage({ params }: Props) {
                 {r.text && <p className="seo-review-text">{r.text}</p>}
               </article>
             ))}
+          </section>
+        )}
+
+        {teaser.total > 0 && (
+          <section className="seo-teaser">
+            <h2 className="seo-reviews-title">
+              {teaser.total} guest {teaser.total === 1 ? 'photo' : 'photos'}
+            </h2>
+            <div className="seo-teaser-grid">
+              {teaser.ids.map((pid) => (
+                /* eslint-disable-next-line @next/next/no-img-element */
+                <img key={pid} src={`/api/photo-teaser/${pid}`} alt="" aria-hidden className="seo-teaser-img" loading="lazy" />
+              ))}
+            </div>
+            <p className="seo-teaser-cta">
+              Real photos from real stays — see them all in the app.{' '}
+              <a href={APP_STORE_URL}>Get Valoré free</a>
+            </p>
           </section>
         )}
 

@@ -168,6 +168,27 @@ export async function getPrivateUserIds(userIds: string[]): Promise<Set<string>>
   return new Set((data ?? []).map((p) => p.id));
 }
 
+/** Guest-photo teaser data for a hotel: up to `limit` photo ids + the total
+ *  count, from public, non-hidden reviews by non-private authors (B79). */
+export async function getHotelTeaserPhotos(
+  hotelId: string,
+  limit = 4
+): Promise<{ ids: string[]; total: number }> {
+  const { data: rows } = await supabase
+    .from('review_photos')
+    .select('id, reviews!inner(hotel_id, user_id, is_public, is_hidden)')
+    .eq('reviews.hotel_id', hotelId)
+    .eq('reviews.is_public', true)
+    .eq('reviews.is_hidden', false)
+    .order('created_at', { ascending: false })
+    .limit(40);
+  const all = (rows ?? []) as unknown as Array<{ id: string; reviews: { user_id: string } }>;
+  if (all.length === 0) return { ids: [], total: 0 };
+  const privateAuthors = await getPrivateUserIds([...new Set(all.map((r) => r.reviews.user_id))]);
+  const visible = all.filter((r) => !privateAuthors.has(r.reviews.user_id));
+  return { ids: visible.slice(0, limit).map((r) => r.id), total: visible.length };
+}
+
 export interface PublicReview {
   rating_overall: number;
   title: string | null;
