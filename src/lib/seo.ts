@@ -1,3 +1,5 @@
+import { cache } from 'react';
+import { unstable_cache } from 'next/cache';
 import { supabase } from '@/lib/supabase';
 
 export const SITE = 'https://stayvalore.com';
@@ -24,7 +26,13 @@ export interface CityEntry {
  * Cities that have at least one publicly reviewed hotel, with counts.
  * This drives the /hotels index, the city pages, and the sitemap.
  */
-export async function getReviewedCities(): Promise<CityEntry[]> {
+export const getReviewedCities = unstable_cache(
+  _getReviewedCities,
+  ['reviewed-cities'],
+  { revalidate: 3600 }
+);
+
+async function _getReviewedCities(): Promise<CityEntry[]> {
   const { data: reviews } = await supabase
     .from('reviews')
     .select('hotel_id')
@@ -89,7 +97,13 @@ function bayes(h: { avgRating: number; reviewCount: number }): number {
 }
 
 /** Publicly reviewed hotels in a city (by slug), ranked by Valoré rating. */
-export async function getCityHotels(slug: string): Promise<{ city: CityEntry; hotels: RankedHotel[] } | null> {
+export const getCityHotels = unstable_cache(
+  _getCityHotels,
+  ['city-hotels'],
+  { revalidate: 3600 }
+);
+
+async function _getCityHotels(slug: string): Promise<{ city: CityEntry; hotels: RankedHotel[] } | null> {
   const cities = await getReviewedCities();
   const city = cities.find((c) => c.slug === slug);
   if (!city) return null;
@@ -200,7 +214,9 @@ export interface PublicReview {
 }
 
 /** Public reviews for one hotel, newest first, with author display names. */
-export async function getHotelReviews(hotelId: string): Promise<PublicReview[]> {
+export const getHotelReviews = cache(_getHotelReviews);
+
+async function _getHotelReviews(hotelId: string): Promise<PublicReview[]> {
   const { data: reviews } = await supabase
     .from('reviews')
     .select('user_id, rating_overall, title, notes, body, trip_type, stay_date, created_at')

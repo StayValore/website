@@ -14,6 +14,15 @@ export const revalidate = 3600;
 
 interface Props { params: Promise<{ id: string }> }
 
+// Pre-render every hotel with a public review at deploy time — these are the
+// pages city rankings link to, and an on-demand render costs ~14 DB round
+// trips (the 1-2s click Ebby felt). Unreviewed share-link hotels still render
+// on demand (dynamicParams default).
+export async function generateStaticParams() {
+  const { data } = await supabase.from('reviews').select('hotel_id').eq('is_public', true);
+  return [...new Set((data ?? []).map((r) => r.hotel_id))].map((id) => ({ id }));
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
   const { data: hotel } = await supabase
