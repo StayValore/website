@@ -163,7 +163,7 @@ export default async function HotelPage({ params }: Props) {
         <a href={APP_STORE_URL} className="dl-btn-secondary">Download Valoré — Free on iOS</a>
         <p className="dl-not-installed">Don't have the app? Download it free on the App Store.</p>
 
-        {reviews.length > 0 && (
+        {reviews.some((r) => r.text || r.title) && (
           <section className="seo-reviews">
             <h2 className="seo-reviews-title">What guests said</h2>
             {reviews.filter((r) => r.text || r.title).slice(0, 10).map((r, i) => (
