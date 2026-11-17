@@ -21,8 +21,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { city, hotels } = data;
   const title = `Best Hotels in ${city.city} — Ranked by Real Travelers | Valoré`;
   const top = hotels[0];
+  // Google truncates snippets around 160 chars: two hotel names when they fit, one otherwise.
+  const pitch = (names: string[]) => {
+    const list = hotels.length > names.length ? `${names.join(', ')} & more` : names.join(' and ');
+    return `The best hotels in ${city.city}, ranked by travelers who actually stayed — ${list}. Real reviews, never sponsored, no affiliate links.`;
+  };
+  const twoNames = pitch(hotels.slice(0, 2).map((h) => h.name));
   const description = top
-    ? `${top.name} leads ${hotels.length === 1 ? 'the ranking' : `${hotels.length} hotels`} in ${city.city}${city.country ? `, ${city.country}` : ''} at ★${top.avgRating.toFixed(1)} — rated by Valoré members who actually stayed. Honest reviews, never sponsored.`
+    ? (twoNames.length <= 160 ? twoNames : pitch([top.name]))
     : `Hotels in ${city.city} rated by Valoré members who actually stayed. Honest reviews, never sponsored.`;
   return {
     title,

@@ -78,11 +78,11 @@ export interface RankedHotel {
 }
 
 /** Trim review text to a quotable excerpt, cutting at a word boundary. */
-function excerpt(text: string, max = 280): string {
+export function excerpt(text: string, max = 280): string {
   const clean = text.replace(/\s+/g, ' ').trim();
   if (clean.length <= max) return clean;
   const cut = clean.slice(0, max);
-  return `${cut.slice(0, Math.max(cut.lastIndexOf(' '), 100))}…`;
+  return `${cut.slice(0, Math.max(cut.lastIndexOf(' '), Math.floor(max / 2)))}…`;
 }
 
 /**

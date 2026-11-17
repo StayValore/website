@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
-import { SITE, citySlug, getCityHotels, getHotelReviews, getHotelTeaserPhotos } from '@/lib/seo';
+import { SITE, citySlug, excerpt, getCityHotels, getHotelReviews, getHotelTeaserPhotos } from '@/lib/seo';
 import { appStoreUrl } from '@/lib/appStoreLink';
 
 const APP_STORE_URL = appStoreUrl('share_hotel');
@@ -38,9 +38,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const title = reviews.length > 0
     ? `${hotel.name} Reviews — Rated by Real Guests | Valoré`
     : `${hotel.name} — Valoré`;
-  const description = reviews.length > 0
-    ? `${reviews.length} honest ${reviews.length === 1 ? 'review' : 'reviews'} of ${hotel.name}${location ? ` in ${location}` : ''} from Valoré members who stayed. Community-rated, never sponsored.`
-    : hotel.description || `Discover ${hotel.name}${location ? ` in ${location}` : ''} on Valoré.`;
+  // Lead the snippet with a real guest quote (highest-rated review with text) — no counts, no stars.
+  const quoted = [...reviews]
+    .filter((r) => r.text)
+    .sort((a, b) => b.rating_overall - a.rating_overall)[0];
+  // City only (no country) keeps the snippet under ~160 chars; skip it when it's already in the name.
+  const place = hotel.city && !hotel.name.toLowerCase().includes(hotel.city.toLowerCase())
+    ? ` in ${hotel.city}`
+    : '';
+  const tail = ` — real guest reviews of ${hotel.name}${place}. Never sponsored, no affiliate links.`;
+  const description = quoted?.text
+    ? `“${excerpt(quoted.text, Math.max(60, 158 - tail.length))}”${tail}`
+    : reviews.length > 0
+      ? `What real guests say about ${hotel.name}${place}. Honest reviews from Valoré members who stayed — never sponsored, no affiliate links.`
+      : hotel.description || `Discover ${hotel.name}${location ? ` in ${location}` : ''} on Valoré.`;
 
   return {
     title,
