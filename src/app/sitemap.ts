@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { supabase } from '@/lib/supabase';
-import { SITE, getReviewedCities } from '@/lib/seo';
+import { SITE, getReviewedCities, publicReviewHotelIds } from '@/lib/seo';
 
 // Regenerate at most hourly — the sitemap grows with every public review.
 export const revalidate = 3600;
@@ -20,12 +20,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     });
   }
 
-  // Every hotel with at least one public review
-  const { data: reviews } = await supabase
-    .from('reviews')
-    .select('hotel_id')
-    .eq('is_public', true);
-  const hotelIds = [...new Set((reviews ?? []).map((r) => r.hotel_id))];
+  // Every hotel with at least one public review — paged past the 1,000-row
+  // response cap; a failure skips hotels rather than failing the sitemap
+  const hotelIds = await publicReviewHotelIds().catch(() => [] as string[]);
   for (const id of hotelIds) {
     entries.push({
       url: `${SITE}/hotel/${id}`,

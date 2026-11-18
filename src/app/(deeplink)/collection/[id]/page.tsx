@@ -12,6 +12,19 @@ const DEFAULT_OG = 'https://stayvalore.com/logo.png';
 
 interface Props { params: Promise<{ id: string }> }
 
+// Service-role key bypasses RLS: only a PUBLIC, non-default list may render
+// its name, hotels, and creator. Everything else gets the same generic shell
+// as a nonexistent id, so a probing request can't tell private from missing.
+async function getRenderableList(id: string) {
+  const { data: list } = await supabase
+    .from('lists')
+    .select('name, user_id, visibility, is_default')
+    .eq('id', id)
+    .single();
+  if (!list || list.visibility !== 'public' || list.is_default) return null;
+  return list;
+}
+
 export async function generateStaticParams() {
   const { data } = await supabase
     .from('lists')
@@ -23,11 +36,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
-  const { data: list } = await supabase
-    .from('lists')
-    .select('name, user_id')
-    .eq('id', id)
-    .single();
+  const list = await getRenderableList(id);
 
   if (!list) return { title: 'Valoré' };
 
@@ -52,31 +61,30 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function CollectionPage({ params }: Props) {
   const { id } = await params;
 
-  const { data: list } = await supabase
-    .from('lists')
-    .select('name, user_id')
-    .eq('id', id)
-    .single();
+  const list = await getRenderableList(id);
 
-  // Fetch hotels in this list with covers
-  const { data: items } = await supabase
-    .from('list_items')
-    .select('hotel:hotels(id, name, city, country, cover_image_url)')
-    .eq('list_id', id)
-    .limit(4);
+  // Fetch hotels in this list with covers — only for a renderable (public) list
+  const { data: items } = list
+    ? await supabase
+        .from('list_items')
+        .select('hotel:hotels(id, name, city, country, cover_image_url)')
+        .eq('list_id', id)
+        .limit(4)
+    : { data: [] as any[] };
 
   const hotels = (items || []).map((i: any) => i.hotel).filter(Boolean);
   const coverPhotos = hotels.map((h: any) => h.cover_image_url).filter(Boolean).slice(0, 4);
 
-  // Fetch creator profile
+  // Fetch creator profile — a private account's identity never renders on the
+  // public web (B79), even on their public list
   let creator: any = null;
   if (list?.user_id) {
     const { data } = await supabase
       .from('profiles')
-      .select('full_name, username, avatar_url')
+      .select('full_name, username, avatar_url, is_private')
       .eq('id', list.user_id)
       .single();
-    creator = data;
+    creator = data?.is_private ? null : data;
   }
 
   const creatorName = creator?.full_name || creator?.username || null;

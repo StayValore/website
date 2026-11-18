@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
-import { SITE, citySlug, excerpt, getCityHotels, getHotelReviews, getHotelTeaserPhotos } from '@/lib/seo';
+import { SITE, citySlug, excerpt, getCityHotels, getHotelReviews, getHotelTeaserPhotos, publicReviewHotelIds } from '@/lib/seo';
 import { appStoreUrl } from '@/lib/appStoreLink';
 
 const APP_STORE_URL = appStoreUrl('share_hotel');
@@ -19,8 +19,9 @@ interface Props { params: Promise<{ id: string }> }
 // trips (the 1-2s click Ebby felt). Unreviewed share-link hotels still render
 // on demand (dynamicParams default).
 export async function generateStaticParams() {
-  const { data } = await supabase.from('reviews').select('hotel_id').eq('is_public', true);
-  return [...new Set((data ?? []).map((r) => r.hotel_id))].map((id) => ({ id }));
+  // Paged past the 1,000-row cap; on failure fall back to on-demand rendering
+  const ids = await publicReviewHotelIds().catch(() => [] as string[]);
+  return ids.map((id) => ({ id }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

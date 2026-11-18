@@ -24,14 +24,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { data: review } = await supabase
     .from('reviews')
     .select(`
-      notes, rating_overall, created_at, user_id, is_public,
+      notes, rating_overall, created_at, user_id, is_public, is_hidden,
       hotel:hotels(name, city, country, cover_image_url),
       photos:review_photos(url)
     `)
     .eq('id', id)
     .single();
 
-  if (!review || review.is_public === false) return { title: 'Valoré' };
+  if (!review || review.is_public === false || review.is_hidden) return { title: 'Valoré' };
 
   // A private account's review never renders on the public web (B79)
   const { data: author } = await supabase
@@ -72,7 +72,7 @@ export default async function ReviewPage({ params }: Props) {
   const { data: reviewRow } = await supabase
     .from('reviews')
     .select(`
-      notes, rating_overall, created_at, user_id, is_public,
+      notes, rating_overall, created_at, user_id, is_public, is_hidden,
       hotel:hotels(id, name, city, country, cover_image_url),
       photos:review_photos(url)
     `)
@@ -81,7 +81,7 @@ export default async function ReviewPage({ params }: Props) {
 
   // Service-role key bypasses RLS — never render a non-public review's
   // content, nor any review by a private account (B79).
-  let review = reviewRow?.is_public === false ? null : reviewRow;
+  let review = reviewRow?.is_public === false || reviewRow?.is_hidden ? null : reviewRow;
   if (review?.user_id) {
     const { data: author } = await supabase
       .from('profiles')

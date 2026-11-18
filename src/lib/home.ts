@@ -38,6 +38,7 @@ export async function getHomeData(): Promise<HomeData> {
     .from('reviews')
     .select('id, hotel_id, user_id, rating_overall, notes, body, created_at')
     .eq('is_public', true)
+    .eq('is_hidden', false) // moderated reviews must leave the web too
     .order('created_at', { ascending: false })
     .limit(200);
   // Service-role key bypasses RLS — private accounts never surface here (B79)

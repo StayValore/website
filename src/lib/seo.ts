@@ -14,6 +14,45 @@ export function citySlug(city: string): string {
     .replace(/^-+|-+$/g, '');
 }
 
+// PostgREST caps ANY single response at 1,000 rows (even with no .limit()),
+// and a .in() with hundreds of ids blows past URL limits — the same bug class
+// that silently hid new hotels from the app map (B86). Page and chunk instead.
+export async function fetchAllRows<T>(
+  page: (from: number, to: number) => PromiseLike<{ data: T[] | null; error: unknown }>
+): Promise<T[]> {
+  const PAGE = 1000;
+  const all: T[] = [];
+  for (let from = 0; from < PAGE * 20; from += PAGE) {
+    const { data, error } = await page(from, from + PAGE - 1);
+    if (error) throw error;
+    all.push(...(data ?? []));
+    if (!data || data.length < PAGE) break;
+  }
+  return all;
+}
+
+export async function chunkedIn<T>(
+  ids: string[],
+  run: (chunk: string[]) => PromiseLike<{ data: T[] | null; error: unknown }>,
+  chunkSize = 150
+): Promise<T[]> {
+  const all: T[] = [];
+  for (let i = 0; i < ids.length; i += chunkSize) {
+    const { data, error } = await run(ids.slice(i, i + chunkSize));
+    if (error) throw error;
+    all.push(...(data ?? []));
+  }
+  return all;
+}
+
+/** Unique hotel_id of every public review — the sitemap/static-params source. */
+export async function publicReviewHotelIds(): Promise<string[]> {
+  const rows = await fetchAllRows<{ hotel_id: string }>((from, to) =>
+    supabase.from('reviews').select('hotel_id').eq('is_public', true).order('id').range(from, to)
+  );
+  return [...new Set(rows.map((r) => r.hotel_id))];
+}
+
 export interface CityEntry {
   city: string;
   country: string | null;
@@ -33,22 +72,21 @@ export const getReviewedCities = unstable_cache(
 );
 
 async function _getReviewedCities(): Promise<CityEntry[]> {
-  const { data: reviews } = await supabase
-    .from('reviews')
-    .select('hotel_id')
-    .eq('is_public', true);
-  const reviewedIds = [...new Set((reviews ?? []).map((r) => r.hotel_id))];
+  const reviews = await fetchAllRows<{ hotel_id: string }>((from, to) =>
+    supabase.from('reviews').select('hotel_id').eq('is_public', true).order('id').range(from, to)
+  );
+  const reviewedIds = [...new Set(reviews.map((r) => r.hotel_id))];
   if (reviewedIds.length === 0) return [];
 
   const reviewCountByHotel = new Map<string, number>();
-  for (const r of reviews ?? []) {
+  for (const r of reviews) {
     reviewCountByHotel.set(r.hotel_id, (reviewCountByHotel.get(r.hotel_id) ?? 0) + 1);
   }
 
-  const { data: hotels } = await supabase
-    .from('hotels')
-    .select('id, city, country')
-    .in('id', reviewedIds);
+  const hotels = await chunkedIn<{ id: string; city: string | null; country: string | null }>(
+    reviewedIds,
+    (chunk) => supabase.from('hotels').select('id, city, country').in('id', chunk)
+  );
 
   const byCity = new Map<string, CityEntry>();
   for (const h of hotels ?? []) {
@@ -222,6 +260,7 @@ async function _getHotelReviews(hotelId: string): Promise<PublicReview[]> {
     .select('user_id, rating_overall, title, notes, body, trip_type, stay_date, created_at')
     .eq('hotel_id', hotelId)
     .eq('is_public', true)
+    .eq('is_hidden', false) // moderated reviews must leave the web too, not just the app
     .order('created_at', { ascending: false })
     .limit(25);
   if (!reviews?.length) return [];
