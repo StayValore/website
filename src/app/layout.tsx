@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   // Google Search Console ownership (URL-prefix property, HTML-tag method —
   // the domain's DNS lives at the registrar, not Vercel, so TXT wasn't viable)
   verification: { google: 'aNzYjLspq3QSpSpeaxbGEksbWNCrmrdKvPQ8ifnD1e0' },
+  // Apple Smart App Banner: iOS Safari shows a native "GET" banner for the app
+  // on every page — the highest-converting install path for mobile web traffic.
+  itunes: { appId: '6760678152' },
   title: 'Valoré — The Hotel Review App for Real Travelers',
   description:
     'Review, rank, and discover hotels through real reviews from friends and travelers you trust — no ads, no paid placements. Where taste meets trust.',

@@ -156,7 +156,17 @@ export default async function CityPage({ params }: Props) {
 
       <div className="seo-cta">
         <p>Every rating on Valoré comes from a traveler who actually stayed.</p>
-        <a href={appStoreUrl('web_home')} className="btn-primary">Get Valoré — Free on iOS</a>
+        <a href={appStoreUrl(`web_city_${slug}`)} className="btn-primary">Get Valoré — Free on iOS</a>
+      </div>
+
+      {/* Mobile-only sticky install bar; desktop keeps the inline CTA above. */}
+      <div className="seo-sticky-cta">
+        <span className="seo-sticky-cta-text">
+          {city.city} hotels, ranked by real guests
+        </span>
+        <a href={appStoreUrl(`web_city_${slug}`)} className="btn-primary seo-sticky-cta-btn">
+          Get the app
+        </a>
       </div>
     </div>
   );
